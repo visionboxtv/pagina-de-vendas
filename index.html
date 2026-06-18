@@ -94,17 +94,23 @@
 
     .video-wrap {
       position: relative;
-      max-width: 640px;
+      max-width: 360px;
       margin: 0 auto 28px;
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 8px 48px rgba(0,0,0,.5);
+      background: #000;
     }
-    .video-wrap video, .video-placeholder {
-      width: 100%; aspect-ratio: 16/9; background: #0f172a;
+    .video-wrap video {
+      width: 100%; display: block; aspect-ratio: 404/720; background: #000;
+    }
+    .video-overlay {
+      position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 12px; color: #94a3b8; font-size: .9rem;
+      cursor: pointer; background: rgba(0,0,0,.15);
+      transition: opacity .3s;
     }
+    .video-overlay.hidden { opacity: 0; pointer-events: none; }
     .play-btn {
       width: 72px; height: 72px; background: var(--red);
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -381,13 +387,16 @@
     <span id="viewer-count">409</span> pessoas assistindo agora
   </div>
 
-  <!-- VIDEO PLACEHOLDER -->
+  <!-- VIDEO VSL -->
   <div class="video-wrap">
-    <div class="video-placeholder" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:linear-gradient(135deg,#0f172a,#1e3a5f);aspect-ratio:16/9;color:#94a3b8;font-size:.9rem;">
-      <div class="play-btn" onclick="this.closest('.video-placeholder').innerHTML='<p style=color:#94a3b8;padding:20px>▶️ Vídeo de apresentação</p>'">
+    <video id="vsl" poster="video/poster.jpg" controls preload="metadata" playsinline>
+      <source src="video/vsl.mp4" type="video/mp4" />
+      Seu navegador não suporta vídeo HTML5.
+    </video>
+    <div class="video-overlay" id="video-overlay">
+      <div class="play-btn">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       </div>
-      <p>Assista a apresentação completa</p>
     </div>
   </div>
 
@@ -885,6 +894,17 @@
       if (!wasOpen) item.classList.add('open');
     });
   });
+
+  // ── VIDEO VSL PLAY OVERLAY ──
+  (function () {
+    const video = document.getElementById('vsl');
+    const overlay = document.getElementById('video-overlay');
+    if (video && overlay) {
+      overlay.addEventListener('click', function () { video.play(); });
+      video.addEventListener('play', function () { overlay.classList.add('hidden'); });
+      video.addEventListener('pause', function () { overlay.classList.remove('hidden'); });
+    }
+  })();
 </script>
 </body>
 </html>
