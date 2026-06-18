@@ -26,7 +26,7 @@
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23e41c1c'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3ES%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -250,6 +250,21 @@
       padding: 6px 16px; border-radius: 20px; text-transform: uppercase;
       margin-bottom: 14px;
     }
+    .bonus-timer {
+      max-width: 440px; margin: 0 auto 36px; text-align: center;
+      background: linear-gradient(135deg, #e41c1c, #b91010);
+      border-radius: 16px; padding: 20px 24px;
+      box-shadow: 0 8px 30px rgba(228,28,28,.35);
+      animation: pulse-timer 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse-timer { 0%,100%{box-shadow:0 8px 30px rgba(228,28,28,.35)} 50%{box-shadow:0 8px 40px rgba(228,28,28,.6)} }
+    .bonus-timer-label { color: #fff; font-size: .85rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+    .bonus-timer-clock {
+      font-family: 'Montserrat', sans-serif; font-size: 3.2rem; font-weight: 900;
+      color: #ffe066; line-height: 1; letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(0,0,0,.35);
+    }
+    .bonus-timer-warn { color: rgba(255,255,255,.92); font-size: .82rem; margin-top: 8px; line-height: 1.45; }
     .bonus-list { display: flex; flex-direction: column; gap: 26px; }
     .bonus-card {
       display: grid; grid-template-columns: 1fr 1.1fr; gap: 30px; align-items: center;
@@ -325,8 +340,11 @@
     }
     .plan-name { font-size: .85rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
     .plan-price-old { font-size: .85rem; color: #6b7280; text-decoration: line-through; margin-bottom: 2px; }
-    .plan-price { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1.1; }
-    .plan-price sub { font-size: .9rem; font-weight: 400; vertical-align: bottom; }
+    .plan-price { font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -1px; }
+    .plan-price .cur { font-size: 1.3rem; font-weight: 700; vertical-align: super; margin-right: 1px; }
+    .plan-price .cents { font-size: 1.4rem; font-weight: 800; }
+    .plan-price sub { font-size: .85rem; font-weight: 600; color: #94a3b8; vertical-align: baseline; font-family: 'Inter', sans-serif; margin-left: 3px; }
+    .plan-card.popular .plan-price { color: #ffe066; }
     .plan-installments { font-size: .8rem; color: #94a3b8; margin: 4px 0 18px; }
     .plan-features { list-style: none; text-align: left; margin-bottom: 22px; display: flex; flex-direction: column; gap: 8px; }
     .plan-features li { font-size: .85rem; color: #cbd5e1; display: flex; gap: 8px; align-items: flex-start; }
@@ -448,8 +466,8 @@
 <!-- HERO -->
 <section class="hero">
   <span class="badge">🔥 Oferta exclusiva – Tempo limitado</span>
-  <h1>Assista <em>Filmes, Séries e Canais ao Vivo</em><br>Sem Mensalidade – Por Apenas <em>R$27,90/mês</em></h1>
-  <p class="sub">Acesso instantâneo a mais de 140.000 conteúdos, 3 telas simultâneas e qualidade 4K. Sem contratos, sem burocracia.</p>
+  <h1>O FIM DOS TRAVAMENTOS<br>COM O <em>SISTEMA OFICIAL OTT+</em></h1>
+  <p class="sub">Novidade no Brasil! A mesma estrutura usada pelo YouTube e pela Netflix — sinal estável, sem travar, em qualquer dispositivo.</p>
 
   <div class="live-count">
     <span class="live-dot"></span>
@@ -485,7 +503,7 @@
 <section class="logos-bg">
   <div class="container">
     <h2 class="section-title">Acesso a <em>Todos os Conteúdos</em> dos Maiores Streamings</h2>
-    <p class="section-sub">Sem precisar assinar cada plataforma separadamente</p>
+    <p class="section-sub">Tudo reunido no sistema oficial OTT+ — sem precisar assinar cada plataforma separadamente</p>
     <div class="logos-grid">
       <div class="logo-chip">🎬 Netflix</div>
       <div class="logo-chip">🎥 Disney+</div>
@@ -512,13 +530,13 @@
 <!-- FEATURES -->
 <section>
   <div class="container">
-    <h2 class="section-title">Por Que o <em>VisionBox</em> É a Melhor Escolha?</h2>
-    <p class="section-sub">Tecnologia avançada, simplicidade e preço justo</p>
+    <h2 class="section-title">Por Que o <em>VisionBox</em> Não Trava Como os Outros?</h2>
+    <p class="section-sub">Porque roda no sistema oficial <strong>OTT+</strong> — a mesma estrutura de transmissão do YouTube e da Netflix</p>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">📡</div>
-        <h3>Sinal via Internet</h3>
-        <p>Funciona com qualquer conexão. Wi-Fi, fibra ou 4G – você escolhe.</p>
+        <h3>Sistema Oficial OTT+</h3>
+        <p>A mesma tecnologia de transmissão usada por YouTube e Netflix: sinal estável em qualquer conexão.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">📺</div>
@@ -526,9 +544,9 @@
         <p>Toda a família assiste ao mesmo tempo em dispositivos diferentes.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🚫🔄</div>
-        <h3>Sem Atualização Manual</h3>
-        <p>O sistema atualiza sozinho. Você nunca fica sem conteúdo.</p>
+        <div class="feature-icon">⚡</div>
+        <h3>Zero Travamentos</h3>
+        <p>A estrutura OTT+ entrega imagem fluida e contínua, sem aquele "carregando" no meio do filme.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🌾</div>
@@ -640,7 +658,7 @@
 <section>
   <div class="container">
     <h2 class="section-title">Compatível com <em>Todos os Seus Dispositivos</em></h2>
-    <p class="section-sub">Um único plano, múltiplos dispositivos</p>
+    <p class="section-sub">Um único plano no sistema OTT+, em todos os seus dispositivos</p>
     <div class="devices-grid">
       <div class="device-chip">📺 Smart TV Samsung</div>
       <div class="device-chip">📺 Smart TV LG</div>
@@ -663,7 +681,13 @@
       <span class="bonus-tag">🎁 Bônus Exclusivos</span>
     </div>
     <h2 class="section-title">Comprando Hoje, Você <em>Ganha 3 Bônus Grátis</em></h2>
-    <p class="section-sub">Mais de R$600 em vantagens inclusas — só por tempo limitado</p>
+    <p class="section-sub">Mais de R$600 em vantagens — disponíveis somente nesta oferta</p>
+
+    <div class="bonus-timer">
+      <p class="bonus-timer-label">⏰ OS BÔNUS SAEM DO AR EM:</p>
+      <div class="bonus-timer-clock" id="bonus-countdown">15:00</div>
+      <p class="bonus-timer-warn">🔥 Restam poucas vagas com bônus! Quando o cronômetro zerar, os 3 bônus expiram e não voltam.</p>
+    </div>
 
     <div class="bonus-list">
 
@@ -836,7 +860,7 @@
       <div class="plan-card">
         <div class="plan-name">Mensal</div>
         <div class="plan-price-old">de R$45,00</div>
-        <div class="plan-price">R$<span style="font-size:1.3rem">27</span>,90<sub>/mês</sub></div>
+        <div class="plan-price"><span class="cur">R$</span>27<span class="cents">,90</span><sub>/mês</sub></div>
         <div class="plan-installments">Acesso por 1 mês</div>
         <ul class="plan-features">
           <li>3 telas simultâneas</li>
@@ -845,7 +869,6 @@
           <li>Qualidade 4K</li>
           <li>Suporte via WhatsApp</li>
         </ul>
-        <div class="plan-units">🔥 Unidades restantes: 50</div>
         <a href="https://pay.cakto.com.br/eycvgvx_931970" target="_blank" rel="noopener" class="btn-buy">COMPRAR AGORA</a>
         <p class="plan-guarantee">🛡️ 7 dias de garantia</p>
       </div>
@@ -854,7 +877,7 @@
       <div class="plan-card">
         <div class="plan-name">Trimestral</div>
         <div class="plan-price-old">de R$83,70</div>
-        <div class="plan-price">R$<span style="font-size:1.3rem">67</span><sub>/3 meses</sub></div>
+        <div class="plan-price"><span class="cur">R$</span>67<sub>/3 meses</sub></div>
         <div class="plan-installments">Equivale a R$22,33/mês · economize 20%</div>
         <ul class="plan-features">
           <li>3 telas simultâneas</li>
@@ -863,7 +886,6 @@
           <li>Qualidade 4K</li>
           <li>Suporte via WhatsApp</li>
         </ul>
-        <div class="plan-units">🔥 Unidades restantes: 70</div>
         <a href="https://pay.cakto.com.br/pb4q7ss_931981" target="_blank" rel="noopener" class="btn-buy">COMPRAR AGORA</a>
         <p class="plan-guarantee">🛡️ 7 dias de garantia</p>
       </div>
@@ -872,7 +894,7 @@
       <div class="plan-card">
         <div class="plan-name">Semestral</div>
         <div class="plan-price-old">de R$167,40</div>
-        <div class="plan-price">R$<span style="font-size:1.3rem">97</span><sub>/6 meses</sub></div>
+        <div class="plan-price"><span class="cur">R$</span>97<sub>/6 meses</sub></div>
         <div class="plan-installments">Equivale a R$16,17/mês · economize 42%</div>
         <ul class="plan-features">
           <li>3 telas simultâneas</li>
@@ -881,7 +903,6 @@
           <li>Qualidade 4K</li>
           <li>Suporte via WhatsApp</li>
         </ul>
-        <div class="plan-units">🔥 Unidades restantes: 30</div>
         <a href="https://pay.cakto.com.br/n4cinqr_931983" target="_blank" rel="noopener" class="btn-buy">COMPRAR AGORA</a>
         <p class="plan-guarantee">🛡️ 7 dias de garantia</p>
       </div>
@@ -891,7 +912,7 @@
         <div class="popular-badge">⭐ Melhor Custo-Benefício</div>
         <div class="plan-name">Anual</div>
         <div class="plan-price-old">de R$334,80</div>
-        <div class="plan-price">R$<span style="font-size:1.3rem">147</span><sub>/ano</sub></div>
+        <div class="plan-price"><span class="cur">R$</span>147<sub>/ano</sub></div>
         <div class="plan-installments">Equivale a R$12,25/mês · economize 56%</div>
         <ul class="plan-features">
           <li>3 telas simultâneas</li>
@@ -900,7 +921,6 @@
           <li>Qualidade 4K Ultra</li>
           <li>Suporte prioritário via WhatsApp</li>
         </ul>
-        <div class="plan-units">🔥 Unidades restantes: 40</div>
         <a href="https://pay.cakto.com.br/5phanuz_931985" target="_blank" rel="noopener" class="btn-buy">COMPRAR AGORA</a>
         <p class="plan-guarantee">🛡️ 7 dias de garantia</p>
       </div>
@@ -1017,13 +1037,13 @@
     <div class="faq-list">
 
       <div class="faq-item">
-        <button class="faq-q">O QUE É O STREAMMAX? <span class="arrow">▼</span></button>
-        <div class="faq-a">O VisionBox é uma plataforma de streaming que oferece acesso a mais de 140.000 conteúdos entre filmes, séries, canais ao vivo, esportes e muito mais, tudo por um preço mensal acessível.</div>
+        <button class="faq-q">O QUE É O VISIONBOX? <span class="arrow">▼</span></button>
+        <div class="faq-a">O VisionBox é uma plataforma de streaming que roda no sistema oficial <strong>OTT+</strong> — a mesma estrutura de transmissão usada por YouTube e Netflix. São mais de 140.000 conteúdos entre filmes, séries, canais ao vivo e esportes, com sinal estável e sem travamentos.</div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">COMO FUNCIONA O ACESSO? <span class="arrow">▼</span></button>
-        <div class="faq-a">Após a compra, você recebe os dados de acesso imediatamente no seu e-mail. Basta instalar o aplicativo no seu dispositivo preferido e começar a assistir.</div>
+        <div class="faq-a">Após a compra, você recebe os dados de acesso pelo WhatsApp. Basta instalar o aplicativo do sistema OTT+ no seu dispositivo preferido e começar a assistir — a tecnologia oficial garante imagem fluida, sem travar.</div>
       </div>
 
       <div class="faq-item">
@@ -1148,6 +1168,22 @@
         if (typeof fbq === 'function') { fbq('track', 'InitiateCheckout'); }
       });
     });
+  })();
+
+  // ── COUNTDOWN DOS BÔNUS ──
+  (function () {
+    const el = document.getElementById('bonus-countdown');
+    if (!el) return;
+    let secs = 15 * 60;
+    function tick() {
+      if (secs <= 0) { el.textContent = '00:00'; return; }
+      const m = String(Math.floor(secs / 60)).padStart(2, '0');
+      const s = String(secs % 60).padStart(2, '0');
+      el.textContent = m + ':' + s;
+      secs--;
+      setTimeout(tick, 1000);
+    }
+    tick();
   })();
 </script>
 </body>
