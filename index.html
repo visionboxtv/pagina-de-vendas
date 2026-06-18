@@ -458,11 +458,6 @@
 </head>
 <body>
 
-<!-- URGENCY BAR -->
-<div id="urgency-bar">
-  ⚠️ OFERTA EXPIRA EM: <span id="countdown">20:00</span> — Vagas Limitadas!
-</div>
-
 <!-- HERO -->
 <section class="hero">
   <span class="badge">🔥 Oferta exclusiva – Tempo limitado</span>
@@ -1113,21 +1108,6 @@
 </footer>
 
 <script>
-  // ── COUNTDOWN TIMER ──
-  (function () {
-    let secs = 20 * 60;
-    const el = document.getElementById('countdown');
-    function tick() {
-      if (secs <= 0) { el.textContent = '00:00'; return; }
-      const m = String(Math.floor(secs / 60)).padStart(2, '0');
-      const s = String(secs % 60).padStart(2, '0');
-      el.textContent = m + ':' + s;
-      secs--;
-      setTimeout(tick, 1000);
-    }
-    tick();
-  })();
-
   // ── LIVE VIEWER COUNT (simulated) ──
   (function () {
     const el = document.getElementById('viewer-count');
