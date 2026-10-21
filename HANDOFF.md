@@ -20,3 +20,11 @@
   - Rodapé com © 2025.
   - Contador "pessoas assistindo agora" sorteado e cronômetro que reinicia; logos e nomes de Netflix, Globo etc.; números de clientes e avaliações sem fonte: risco de reprovação dos anúncios no Meta e de reclamação de consumidor.
   - `video/video-vsl-recuperado.mp4` é cópia idêntica de `video/vsl.mp4` (pode ser apagada sem perda); `.gitignore` com `.vercel` repetido.
+
+## 2026-10-21: correções (no computador, sem publicar)
+- Dados do dono: WhatsApp de suporte +55 31 98256-5683; e-mail pixvisionbox@gmail.com; todos os planos com 2 telas (a 3ª é o Bônus 1); cartão "com parcelamento", sem citar juros nem número de parcelas; termos genéricos em nome de "VisionBox".
+- Feito: planos com 2 telas e "Até 3 telas" no topo e nos benefícios; FAQ sem as contradições (telas, boleto, desconto no PIX, 12x, chat ao vivo); botão flutuante de WhatsApp e links de contato (evento `Contact` no Pixel); rodapé com links reais, sem boleto, © 2026; novas páginas `privacidade.html`, `termos.html` e `trocas.html` (estilo em `legal.css`); a linha repetida do `.gitignore` saiu.
+- Conferido localmente: links e textos, celular sem rolagem lateral.
+- Mantido por decisão do dono (não mexer): contador de pessoas assistindo, cronômetro dos bônus, nomes de streamings, números e depoimentos, bônus do sorteio e a cópia do vídeo.
+- Os termos dizem que os planos não se renovam sozinhos (o checkout é "à vista"); confirmar com o dono antes de publicar.
+- Falta: publicar (push para o GitHub publica na Vercel), só com a confirmação do dono.
