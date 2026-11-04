@@ -1,5 +1,13 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: chave do webhook salva; Mensal da Cakto a R$ 29,70
+- Webhook "Avisos da Página de Vendas" salvo e ativo na Cakto. O dono colou a chave em `CAKTO_WEBHOOK_SECRET` na Vercel (conferida pelo tamanho, 45 caracteres) e ela foi salva.
+- Falta o **redeploy** do projeto `sales-page` na Vercel (a ferramenta do Claude bloqueou; fica com o dono). Conferido na sincronização: `/api/venda` ainda responde 503 "não configurado". Depois do redeploy: apertar **Testar** no webhook da Cakto e confirmar que o aviso chega.
+- Decisão do dono: Mensal vale **R$ 29,70**. Produto Mensal alterado na Cakto de R$ 27,90 para R$ 29,70; checkout usado pela página conferido cobrando R$ 29,70.
+- Verificação do domínio na Meta: não urgente (anúncios vão ao WhatsApp e o Purchase sai do Gestor como chat); fazer quando o dono quiser.
+- Páginas antigas megacinesuporte e pointplay9: o dono disse que ninguém mais usa; ficam como estão (sem visitas, não enviam compras ao Pixel).
+- Nenhum arquivo do site alterado; nada publicado.
+
 ## 2026-11-04: Cakto quase ligada aos avisos; Meta sem mudanças
 - Feito pelo Claude no navegador: banco Upstash Redis gratuito `pagina-vendas-avisos` criado e ligado ao projeto `sales-page` (variáveis `KV_REST_API_URL`/`KV_REST_API_TOKEN`). Webhook "Avisos da Página de Vendas" preenchido na Cakto (4 produtos VisionBox, evento Compra aprovada, URL https://visionboxtv.app/api/venda), **ainda não salvo**.
 - Falta o dono colar a chave secreta (já copiada) no webhook da Cakto e em `CAKTO_WEBHOOK_SECRET` na Vercel; depois, republicar (redeploy) e testar com o envio de teste da Cakto. Conferido na sincronização: `/api/venda` ainda responde 503 "não configurado" e `/api/vendas` lista vazia; os 48 avisos históricos funcionam sem isso.
