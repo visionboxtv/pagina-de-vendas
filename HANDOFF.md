@@ -1,5 +1,11 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: domínio próprio visionboxtv.app ligado
+- Pedido do dono ("Use o claude para configurar o domínio"), feito pelo Claude no painel da Vercel (time PagAuto 1, plano Pro). Domínio comprado pelo dono na própria Vercel (vence em 2027-11-04), então o DNS já é da Vercel.
+- Projeto `sales-page`: `visionboxtv.app` como endereço principal (Production) e `www.visionboxtv.app` com redirecionamento permanente 308 para ele. `sales-page-khaki.vercel.app` continua funcionando.
+- Verificado de fora: https://visionboxtv.app responde 200 com HTTPS válido e o mesmo título da página; www responde 308 para https://visionboxtv.app/.
+- O código não tem o endereço antigo fixo. Ao cadastrar o webhook da Cakto, usar https://visionboxtv.app/api/venda.
+
 ## 2026-11-04: sincronização final conferida
 - Os dois pedidos foram reunidos no commit `3ae1e6d`: 48 compras comprovadas, 12 por plano, com primeiro nome, plano e valor pago no mesmo card. Esse commit já está na `main` remota e publicado; nenhuma nova publicação foi feita nesta sincronização.
 - Conferência independente: HTML, `avisos.js`, base histórica, CSS e privacidade do site iguais aos arquivos locais, normalizando CRLF/LF. Base com 48 primeiros nomes distintos, 12 registros de cada modalidade e valores positivos; auditoria local contém os 48 registros de origem.
