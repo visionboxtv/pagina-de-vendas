@@ -318,6 +318,7 @@
       gap: 22px;
     }
     .plan-card {
+      display: flex; flex-direction: column;
       background: rgba(255,255,255,.05);
       border: 1px solid rgba(255,255,255,.15);
       border-radius: 16px;
@@ -346,12 +347,19 @@
     .plan-price sub { font-size: .85rem; font-weight: 600; color: #94a3b8; vertical-align: baseline; font-family: 'Inter', sans-serif; margin-left: 3px; }
     .plan-card.popular .plan-price { color: #ffe066; }
     .plan-installments { font-size: .8rem; color: #94a3b8; margin: 4px 0 18px; }
+    .plan-savings {
+      background: rgba(245,158,11,.12); color: #ffe066;
+      border-radius: 8px; padding: 10px; margin: -6px 0 18px;
+      font-size: .9rem; font-weight: 800; line-height: 1.4;
+    }
+    .plan-savings small { display: block; font-size: .75rem; font-weight: 400; color: #cbd5e1; margin-top: 4px; }
+    .plan-card.popular .plan-savings { border: 1px solid var(--yellow); font-size: 1.05rem; }
     .plan-features { list-style: none; text-align: left; margin-bottom: 22px; display: flex; flex-direction: column; gap: 8px; }
     .plan-features li { font-size: .85rem; color: #cbd5e1; display: flex; gap: 8px; align-items: flex-start; }
     .plan-features li::before { content: "✅"; flex-shrink: 0; }
     .plan-units { font-size: .78rem; color: var(--yellow); margin-bottom: 14px; font-weight: 600; }
     .btn-buy {
-      display: block; width: 100%;
+      display: block; width: 100%; margin-top: auto;
       background: var(--blue);
       color: #fff; font-weight: 700; font-size: 1rem;
       padding: 14px; border-radius: 10px;
@@ -473,7 +481,7 @@
 <!-- HERO -->
 <section class="hero">
   <span class="badge">🔥 Oferta exclusiva – Tempo limitado</span>
-  <h1>O FIM DOS TRAVAMENTOS<br>COM O <em>SISTEMA OFICIAL OTT+</em></h1>
+  <h1>O FIM DOS TRAVAMENTOS<br>COM <em>Estrutura própria em On Demand e CDN</em></h1>
   <p class="sub">Novidade no Brasil! A mesma estrutura usada pelo YouTube e pela Netflix — sinal estável, sem travar, em qualquer dispositivo.</p>
 
   <div class="live-count">
@@ -497,7 +505,7 @@
   <ul class="hero-bullets">
     <li>140.000+ Filmes &amp; Séries</li>
     <li>Canais ao vivo 24h</li>
-    <li>Até 3 Telas Simultâneas</li>
+    <li>2 Telas Simultâneas</li>
     <li>Qualidade 4K HD</li>
     <li>Sem mensalidade surpresa</li>
     <li>Suporte 24/7</li>
@@ -510,7 +518,7 @@
 <section class="logos-bg">
   <div class="container">
     <h2 class="section-title">Acesso a <em>Todos os Conteúdos</em> dos Maiores Streamings</h2>
-    <p class="section-sub">Tudo reunido no sistema oficial OTT+ — sem precisar assinar cada plataforma separadamente</p>
+    <p class="section-sub">Tudo reunido com Estrutura própria em On Demand e CDN — sem precisar assinar cada plataforma separadamente</p>
     <div class="logos-grid">
       <div class="logo-chip">🎬 Netflix</div>
       <div class="logo-chip">🎥 Disney+</div>
@@ -538,22 +546,22 @@
 <section>
   <div class="container">
     <h2 class="section-title">Por Que o <em>VisionBox</em> Não Trava Como os Outros?</h2>
-    <p class="section-sub">Porque roda no sistema oficial <strong>OTT+</strong> — a mesma estrutura de transmissão do YouTube e da Netflix</p>
+    <p class="section-sub">Porque conta com <strong>Estrutura própria em On Demand e CDN</strong> — a mesma estrutura de transmissão do YouTube e da Netflix</p>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">📡</div>
-        <h3>Sistema Oficial OTT+</h3>
+        <h3>Estrutura própria em On Demand e CDN</h3>
         <p>A mesma tecnologia de transmissão usada por YouTube e Netflix: sinal estável em qualquer conexão.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">📺</div>
-        <h3>Até 3 Telas Simultâneas</h3>
-        <p>2 telas em todos os planos e a 3ª de bônus: toda a família assiste ao mesmo tempo em dispositivos diferentes.</p>
+        <h3>2 Telas Simultâneas</h3>
+        <p>2 telas em todos os planos: assista ao mesmo tempo em dispositivos diferentes.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">⚡</div>
         <h3>Zero Travamentos</h3>
-        <p>A estrutura OTT+ entrega imagem fluida e contínua, sem aquele "carregando" no meio do filme.</p>
+        <p>A Estrutura própria em On Demand e CDN entrega imagem fluida e contínua, sem aquele "carregando" no meio do filme.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🌾</div>
@@ -604,7 +612,7 @@
           </div>
         </div>
         <div class="stars">★★★★★</div>
-        <p class="t-text">"Assisto todos os jogos de futebol ao vivo! Minha família toda usa em 3 TVs ao mesmo tempo. Recomendo muito!"</p>
+        <p class="t-text">"Assisto todos os jogos de futebol ao vivo! Minha família toda usa em 2 TVs ao mesmo tempo. Recomendo muito!"</p>
       </div>
 
       <div class="testimonial-card">
@@ -665,7 +673,7 @@
 <section>
   <div class="container">
     <h2 class="section-title">Compatível com <em>Todos os Seus Dispositivos</em></h2>
-    <p class="section-sub">Um único plano no sistema OTT+, em todos os seus dispositivos</p>
+    <p class="section-sub">Um único plano com Estrutura própria em On Demand e CDN, em todos os seus dispositivos</p>
     <div class="devices-grid">
       <div class="device-chip">📺 Smart TV Samsung</div>
       <div class="device-chip">📺 Smart TV LG</div>
@@ -698,10 +706,10 @@
 
     <div class="bonus-list">
 
-      <!-- BÔNUS 1: 3 TELAS -->
+      <!-- BÔNUS 1: 2 TELAS -->
       <div class="bonus-card">
         <div class="bonus-mockup">
-          <svg viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Streaming em três telas: TV, tablet e celular">
+          <svg viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Streaming em duas telas: TV e celular">
             <defs>
               <linearGradient id="b1hero" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#e41c1c"/><stop offset="1" stop-color="#1a73e8"/>
@@ -723,18 +731,6 @@
             <rect x="282" y="98" width="28" height="40" rx="4" fill="#1a73e8"/>
             <rect x="198" y="154" width="24" height="14" fill="#334155"/>
             <rect x="166" y="168" width="88" height="7" rx="3.5" fill="#475569"/>
-            <!-- Tablet -->
-            <g transform="rotate(-5 78 180)">
-              <rect x="30" y="108" width="96" height="132" rx="10" fill="#0b1120" stroke="#334155" stroke-width="3"/>
-              <rect x="37" y="116" width="82" height="116" rx="3" fill="#0f172a"/>
-              <rect x="43" y="122" width="70" height="34" rx="4" fill="url(#b1hero)"/>
-              <circle cx="78" cy="139" r="9" fill="rgba(255,255,255,.92)"/>
-              <path d="M75 135 L75 143 L82 139 Z" fill="#0f172a"/>
-              <rect x="43" y="162" width="33" height="30" rx="3" fill="#10b981"/>
-              <rect x="80" y="162" width="33" height="30" rx="3" fill="#f59e0b"/>
-              <rect x="43" y="197" width="33" height="30" rx="3" fill="#8b5cf6"/>
-              <rect x="80" y="197" width="33" height="30" rx="3" fill="#ec4899"/>
-            </g>
             <!-- Phone -->
             <g transform="rotate(5 330 185)">
               <rect x="298" y="116" width="68" height="124" rx="13" fill="#0b1120" stroke="#334155" stroke-width="3"/>
@@ -752,8 +748,8 @@
         </div>
         <div class="bonus-info">
           <span class="bonus-num">Bônus 1</span>
-          <h3>3 Telas Simultâneas</h3>
-          <p>Todo plano já vem com 2 telas; comprando hoje, você ganha a 3ª. Assista em até 3 dispositivos ao mesmo tempo — TV, celular e tablet — com a mesma conta. Cada um na sua tela, sem brigar pelo controle remoto.</p>
+          <h3>2 Telas Simultâneas</h3>
+          <p>Todo plano já vem com 2 telas. Assista em até 2 dispositivos ao mesmo tempo — como TV e celular — com a mesma conta. Cada um na sua tela, sem brigar pelo controle remoto.</p>
           <div class="bonus-value"><span class="old">De R$97,00</span> <span class="free">HOJE GRÁTIS</span></div>
         </div>
       </div>
@@ -867,7 +863,7 @@
       <div class="plan-card">
         <div class="plan-name">Mensal</div>
         <div class="plan-price-old">de R$45,00</div>
-        <div class="plan-price"><span class="cur">R$</span>27<span class="cents">,90</span><sub>/mês</sub></div>
+        <div class="plan-price"><span class="cur">R$</span>29<span class="cents">,70</span><sub>/mês</sub></div>
         <div class="plan-installments">Acesso por 1 mês</div>
         <ul class="plan-features">
           <li>2 telas simultâneas</li>
@@ -883,9 +879,10 @@
       <!-- Plano Trimestral -->
       <div class="plan-card">
         <div class="plan-name">Trimestral</div>
-        <div class="plan-price-old">de R$83,70</div>
+        <div class="plan-price-old">No mensal: R$89,10</div>
         <div class="plan-price"><span class="cur">R$</span>67<sub>/3 meses</sub></div>
-        <div class="plan-installments">Equivale a R$22,33/mês · economize 20%</div>
+        <div class="plan-installments">Equivale a R$22,33/mês</div>
+        <div class="plan-savings">Economize R$22,10<small>Em 3 meses, comparado ao mensal</small></div>
         <ul class="plan-features">
           <li>2 telas simultâneas</li>
           <li>140.000+ filmes e séries</li>
@@ -900,9 +897,10 @@
       <!-- Plano Semestral -->
       <div class="plan-card">
         <div class="plan-name">Semestral</div>
-        <div class="plan-price-old">de R$167,40</div>
+        <div class="plan-price-old">No mensal: R$178,20</div>
         <div class="plan-price"><span class="cur">R$</span>97<sub>/6 meses</sub></div>
-        <div class="plan-installments">Equivale a R$16,17/mês · economize 42%</div>
+        <div class="plan-installments">Equivale a R$16,17/mês</div>
+        <div class="plan-savings">Economize R$81,20<small>Em 6 meses, comparado ao mensal</small></div>
         <ul class="plan-features">
           <li>2 telas simultâneas</li>
           <li>140.000+ filmes e séries</li>
@@ -918,9 +916,10 @@
       <div class="plan-card popular">
         <div class="popular-badge">⭐ Melhor Custo-Benefício</div>
         <div class="plan-name">Anual</div>
-        <div class="plan-price-old">de R$334,80</div>
+        <div class="plan-price-old">No mensal: R$356,40</div>
         <div class="plan-price"><span class="cur">R$</span>147<sub>/ano</sub></div>
-        <div class="plan-installments">Equivale a R$12,25/mês · economize 56%</div>
+        <div class="plan-installments">Equivale a R$12,25/mês</div>
+        <div class="plan-savings">Economize R$209,40 no ano<small>Cerca de 59% menos que pagar mês a mês</small></div>
         <ul class="plan-features">
           <li>2 telas simultâneas</li>
           <li>140.000+ filmes e séries</li>
@@ -1045,12 +1044,12 @@
 
       <div class="faq-item">
         <button class="faq-q">O QUE É O VISIONBOX? <span class="arrow">▼</span></button>
-        <div class="faq-a">O VisionBox é uma plataforma de streaming que roda no sistema oficial <strong>OTT+</strong> — a mesma estrutura de transmissão usada por YouTube e Netflix. São mais de 140.000 conteúdos entre filmes, séries, canais ao vivo e esportes, com sinal estável e sem travamentos.</div>
+        <div class="faq-a">O VisionBox é uma plataforma de streaming com <strong>Estrutura própria em On Demand e CDN</strong> — a mesma estrutura de transmissão usada por YouTube e Netflix. São mais de 140.000 conteúdos entre filmes, séries, canais ao vivo e esportes, com sinal estável e sem travamentos.</div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q">COMO FUNCIONA O ACESSO? <span class="arrow">▼</span></button>
-        <div class="faq-a">Após a compra, você recebe os dados de acesso pelo WhatsApp. Basta instalar o aplicativo do sistema OTT+ no seu dispositivo preferido e começar a assistir — a tecnologia oficial garante imagem fluida, sem travar.</div>
+        <div class="faq-a">Após a compra, você recebe os dados de acesso pelo WhatsApp. Basta instalar o aplicativo no seu dispositivo preferido e começar a assistir — a Estrutura própria em On Demand e CDN garante imagem fluida, sem travar.</div>
       </div>
 
       <div class="faq-item">
@@ -1065,7 +1064,7 @@
 
       <div class="faq-item">
         <button class="faq-q">POSSO USAR EM MAIS DE UM DISPOSITIVO? <span class="arrow">▼</span></button>
-        <div class="faq-a">Sim! Todos os planos incluem 2 telas simultâneas, e comprando hoje você ganha a 3ª tela de bônus. Toda a família pode assistir ao mesmo tempo.</div>
+        <div class="faq-a">Sim! Todos os planos incluem 2 telas simultâneas. Você pode assistir em até 2 dispositivos ao mesmo tempo.</div>
       </div>
 
       <div class="faq-item">
