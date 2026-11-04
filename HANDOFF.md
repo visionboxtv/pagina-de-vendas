@@ -1,5 +1,9 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: textos centralizados e topo em uma coluna (PUBLICADO, 2c6d3ce)
+- Pedido do dono com "publicar": cronômetro do topo agora "Oferta limitada! Termina em: 03:15:00"; frase "A mesma estrutura da Sky e da Netflix." entre o título e o vídeo; textos do site centralizados. Ficam à esquerda por legibilidade (aceito pelo dono): itens das listas com marcador (lista centralizada como bloco), respostas e perguntas do FAQ e os avisos de compra.
+- No computador o topo deixou de ter duas colunas: título, frase e vídeo centralizados, pipoca atrás do celular. Vídeo inteiro na primeira tela em 320x568, 360x740, 375x667, 390x844, 1280x720, 1366x768 e 1440x900; sem rolagem lateral. Conferido no ar: textos novos, 0 wa.me, 4 checkouts, vídeo 206. Feito por subagente; capturas em C:Userswashicerebro-trabalhopag-capturas.
+
 ## 2026-11-04: entrega da Cakto com link do WhatsApp nos 4 planos
 - Causa da compra de teste sem entrega: os 4 produtos tinham só o canal "Link de pagamento" (nenhuma entrega). Configurado em cada produto (Configurações): canal **Acesso por e-mail** com o link `https://wa.me/5531983555608?text=Olá! Acabei de comprar o plano <Plano> da VisionBox e gostaria de instalar.` (texto codificado no link, um por plano), página de vendas `https://visionboxtv.app` e nome de exibição "VisionBox". E-mail de confirmação já estava ligado ("enviar imediatamente após o pagamento").
 - Em Upsell e Downsell (página de obrigado personalizada) ligada nos 4, redirecionando para o mesmo link do WhatsApp do plano. Tudo conferido recarregando cada página.
