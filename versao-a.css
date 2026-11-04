@@ -426,3 +426,17 @@ footer .footer-links a:hover { color: var(--red); }
   .oferta-relogio b { font-size: var(--text-sm); }
   .avisos { left: var(--space-2); bottom: var(--space-2); }
 }
+
+/* ─── Ajustes de 2026-11-04: imagens do dono e benefícios em verde ─── */
+:root { --verde-ok: oklch(66% 0.17 150); }
+.hero-bullets li::before { background-color: var(--verde-ok); }
+.foto-larga { margin: 0; border-radius: var(--radius-2); overflow: hidden; box-shadow: var(--shadow-2); border: 1px solid var(--line); }
+.foto-larga img, .foto-showroom img { width: 100%; height: auto; display: block; }
+.foto-servidores { aspect-ratio: 1200 / 655; }
+.features-layout .foto-servidores { align-self: start; }
+@media (min-width: 62rem) { .features-layout .foto-servidores { position: sticky; top: var(--space-9); } }
+.photo-card.foto-showroom { aspect-ratio: 1400 / 933; }
+.photo-card.foto-showroom img { object-fit: contain; }
+.bonus-mockup:has(.foto-duas-telas) { padding: 0; min-height: 0; background: var(--black); }
+.foto-duas-telas { width: 100%; height: auto; display: block; }
+.link-duas-telas { display: block; border-radius: inherit; }
