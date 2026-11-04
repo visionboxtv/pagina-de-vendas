@@ -1,5 +1,9 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: título do topo em 2 linhas no celular (PUBLICADO, b98c9bc) e Cakto com 2 telas
+- Com "pode publicar": no celular a parte branca do título ("O FIM DOS TRAVAMENTOS / COM") cabe em 2 linhas (fonte clamp(1.25rem, 6.5vw, 2.25rem), cerca de 12% menor em 390 px); a linha amarela manteve o tamanho anterior. Medido de 320 a 414 px: 2 linhas, vídeo inteiro na primeira tela, sem rolagem lateral. Computador sem mudança. Conferido no ar: CSS novo, 4 checkouts, cronômetro, vídeo 206.
+- Cakto: descrição dos 4 produtos trocada de "até 3 telas" para "2 telas simultâneas" (conferido na lista de produtos). E-mail de suporte dos 4 já é pixvisionbox@gmail.com.
+
 ## 2026-11-04: e-mail de suporte da Cakto trocado nos 4 planos
 - Pedido do dono ("pode trocar até a gente criar o comercial"): e-mail de suporte dos 4 produtos na Cakto passou de washington4726 para **pixvisionbox@gmail.com**. Cada troca exige um código de 6 dígitos enviado ao e-mail novo (o dono digitou); campo travado até clicar Alterar > Confirmar > Enviar Código. Conferido em Configurações de cada plano; continuam só os 4 produtos (Anual sem duplicata).
 - Divergência a decidir: a descrição dos 4 produtos na Cakto ainda diz "até 3 telas" e "Suporte rápido no WhatsApp"; a página mostra 2 telas desde 2026-11-03. Não alterado; aguarda o dono.
