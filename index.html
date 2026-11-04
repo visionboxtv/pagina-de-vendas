@@ -26,567 +26,126 @@
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23e41c1c'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3ES%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --red: #e41c1c;
-      --red-dark: #b91010;
-      --blue: #1a73e8;
-      --blue-dark: #1558b8;
-      --green: #16a34a;
-      --yellow: #f59e0b;
-      --dark: #111827;
-      --gray: #6b7280;
-      --light: #f9fafb;
-      --white: #ffffff;
-      --border: #e5e7eb;
-      --shadow: 0 4px 24px rgba(0,0,0,.10);
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', Arial, sans-serif; color: var(--dark); background: #fff; line-height: 1.6; }
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-
-    /* ─── URGENCY BAR ─── */
-    #urgency-bar {
-      background: var(--red);
-      color: #fff;
-      text-align: center;
-      padding: 10px 16px;
-      font-size: .9rem;
-      font-weight: 700;
-      letter-spacing: .5px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    #urgency-bar span { color: #ffe066; font-size: 1.1rem; }
-    #countdown { font-size: 1.3rem; font-weight: 900; background: rgba(0,0,0,.25); padding: 2px 10px; border-radius: 6px; display: inline-block; }
-
-    /* ─── HERO ─── */
-    .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
-      color: #fff;
-      text-align: center;
-      padding: 48px 20px 36px;
-    }
-    .hero .badge {
-      display: inline-block;
-      background: var(--red);
-      color: #fff;
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      padding: 5px 14px;
-      border-radius: 20px;
-      margin-bottom: 18px;
-      text-transform: uppercase;
-    }
-    .hero h1 {
-      font-size: clamp(1.6rem, 5vw, 2.8rem);
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 16px;
-      text-shadow: 0 2px 8px rgba(0,0,0,.3);
-    }
-    .hero h1 em { color: #ffe066; font-style: normal; }
-    .hero .sub {
-      font-size: clamp(.95rem, 2.5vw, 1.15rem);
-      color: #cbd5e1;
-      max-width: 600px;
-      margin: 0 auto 28px;
-    }
-    .live-count {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.2);
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: .88rem;
-      margin-bottom: 28px;
-    }
-    .live-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; animation: pulse 1.4s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
-
-    .video-wrap {
-      position: relative;
-      max-width: 360px;
-      margin: 0 auto 28px;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 8px 48px rgba(0,0,0,.5);
-      background: #000;
-    }
-    .video-wrap video {
-      width: 100%; display: block; aspect-ratio: 404/720; background: #000;
-    }
-    .video-overlay {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; background: rgba(0,0,0,.15);
-      transition: opacity .3s;
-    }
-    .video-overlay.hidden { opacity: 0; pointer-events: none; }
-    .play-btn {
-      width: 72px; height: 72px; background: var(--red);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: transform .2s;
-    }
-    .play-btn:hover { transform: scale(1.1); }
-    .play-btn svg { width: 32px; height: 32px; fill: #fff; margin-left: 6px; }
-
-    .hero-bullets {
-      list-style: none;
-      display: flex; flex-wrap: wrap; gap: 10px;
-      justify-content: center;
-      margin-top: 20px;
-      font-size: .9rem;
-    }
-    .hero-bullets li {
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.18);
-      padding: 7px 14px;
-      border-radius: 6px;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .hero-bullets li::before { content: "✅"; }
-
-    /* ─── SECTION ─── */
-    section { padding: 60px 20px; }
-    .container { max-width: 960px; margin: 0 auto; }
-    .section-title {
-      text-align: center;
-      font-size: clamp(1.3rem, 4vw, 2rem);
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-    .section-title em { color: var(--blue); font-style: normal; }
-    .section-sub {
-      text-align: center;
-      color: var(--gray);
-      font-size: .95rem;
-      margin-bottom: 40px;
-    }
-    hr.divider { border: none; border-top: 2px solid var(--border); margin: 0; }
-
-    /* ─── LOGOS ─── */
-    .logos-bg { background: var(--light); }
-    .logos-grid {
-      display: flex; flex-wrap: wrap; gap: 18px;
-      align-items: center; justify-content: center;
-    }
-    .logo-chip {
-      background: #fff; border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px 22px;
-      font-weight: 700; font-size: .88rem; color: var(--dark);
-      box-shadow: 0 2px 8px rgba(0,0,0,.06);
-      letter-spacing: .5px;
-    }
-
-    /* ─── FEATURES ─── */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-    }
-    .feature-card {
-      background: var(--light);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px 22px;
-      text-align: center;
-      transition: box-shadow .2s, transform .2s;
-    }
-    .feature-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
-    .feature-icon { font-size: 2.4rem; margin-bottom: 14px; }
-    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
-    .feature-card p { font-size: .88rem; color: var(--gray); }
-
-    /* ─── TESTIMONIALS ─── */
-    .testimonials-bg { background: #f0f4ff; }
-    .testimonials-track {
-      display: flex; gap: 20px; overflow-x: auto; padding-bottom: 12px;
-      scroll-snap-type: x mandatory; scrollbar-width: thin;
-    }
-    .testimonials-track::-webkit-scrollbar { height: 5px; }
-    .testimonials-track::-webkit-scrollbar-thumb { background: #c7d2e8; border-radius: 4px; }
-    .testimonial-card {
-      flex: 0 0 280px; scroll-snap-align: start;
-      background: #fff; border-radius: 14px; padding: 22px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.08);
-    }
-    .t-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .t-avatar {
-      width: 46px; height: 46px; border-radius: 50%;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;
-    }
-    .t-name { font-weight: 700; font-size: .9rem; }
-    .t-time { font-size: .78rem; color: var(--gray); }
-    .stars { color: var(--yellow); font-size: .9rem; margin-bottom: 8px; }
-    .t-text { font-size: .88rem; color: #374151; line-height: 1.5; }
-    .verified { font-size: .72rem; color: var(--green); font-weight: 600; }
-
-    /* ─── DEVICES ─── */
-    .devices-grid {
-      display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;
-    }
-    .device-chip {
-      background: var(--dark); color: #fff;
-      padding: 10px 20px; border-radius: 30px;
-      font-size: .88rem; font-weight: 600;
-      display: flex; align-items: center; gap: 8px;
-    }
-
-    /* ─── BÔNUS ─── */
-    .bonus-bg { background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%); }
-    .bonus-tag {
-      display: inline-block; background: var(--yellow); color: #000;
-      font-size: .78rem; font-weight: 800; letter-spacing: 1px;
-      padding: 6px 16px; border-radius: 20px; text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-    .bonus-timer {
-      max-width: 440px; margin: 0 auto 36px; text-align: center;
-      background: linear-gradient(135deg, #e41c1c, #b91010);
-      border-radius: 16px; padding: 20px 24px;
-      box-shadow: 0 8px 30px rgba(228,28,28,.35);
-      animation: pulse-timer 2.2s ease-in-out infinite;
-    }
-    @keyframes pulse-timer { 0%,100%{box-shadow:0 8px 30px rgba(228,28,28,.35)} 50%{box-shadow:0 8px 40px rgba(228,28,28,.6)} }
-    .bonus-timer-label { color: #fff; font-size: .85rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
-    .bonus-timer-clock {
-      font-family: 'Montserrat', sans-serif; font-size: 3.2rem; font-weight: 900;
-      color: #ffe066; line-height: 1; letter-spacing: 1px;
-      text-shadow: 0 2px 8px rgba(0,0,0,.35);
-    }
-    .bonus-timer-warn { color: rgba(255,255,255,.92); font-size: .82rem; margin-top: 8px; line-height: 1.45; }
-    .bonus-list { display: flex; flex-direction: column; gap: 26px; }
-    .bonus-card {
-      display: grid; grid-template-columns: 1fr 1.1fr; gap: 30px; align-items: center;
-      background: #fff; border: 2px solid #fde68a; border-radius: 20px;
-      padding: 26px; box-shadow: 0 8px 30px rgba(245,158,11,.13);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .bonus-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(245,158,11,.22); }
-    .bonus-card:nth-child(even) .bonus-mockup { order: 2; }
-    .bonus-mockup {
-      display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, #0f172a, #1e3a5f);
-      border-radius: 16px; padding: 22px; min-height: 210px;
-      box-shadow: inset 0 2px 14px rgba(0,0,0,.35);
-    }
-    .bonus-mockup svg { width: 100%; height: auto; max-height: 240px; display: block; }
-    .bonus-num {
-      display: inline-block; background: var(--red); color: #fff;
-      font-size: .72rem; font-weight: 800; letter-spacing: 1px;
-      padding: 4px 12px; border-radius: 6px; text-transform: uppercase; margin-bottom: 12px;
-    }
-    .bonus-info h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 10px; line-height: 1.2; }
-    .bonus-info p { font-size: .92rem; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
-    .bonus-value { font-size: .95rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .bonus-value .old { color: #9ca3af; text-decoration: line-through; }
-    .bonus-value .free {
-      color: #fff; background: var(--green); font-weight: 800; font-size: .9rem;
-      padding: 4px 12px; border-radius: 6px; letter-spacing: .5px;
-    }
-    .bonus-total {
-      text-align: center; margin-top: 34px;
-      background: #fff; border: 2px dashed var(--green); border-radius: 14px;
-      padding: 20px; max-width: 560px; margin-left: auto; margin-right: auto;
-    }
-    .bonus-total .label { font-size: .95rem; color: var(--dark); font-weight: 600; }
-    .bonus-total .amount { font-size: 1.8rem; font-weight: 900; color: var(--green); }
-    .bonus-total .amount .strike { color: #9ca3af; text-decoration: line-through; font-size: 1.1rem; font-weight: 700; }
-    @media (max-width: 640px) {
-      .bonus-card { grid-template-columns: 1fr; gap: 18px; }
-      .bonus-card:nth-child(even) .bonus-mockup { order: 0; }
-    }
-
-    /* ─── PRICING ─── */
-    .pricing-bg { background: linear-gradient(135deg, #0f172a, #1e3a5f); color: #fff; }
-    .pricing-bg .section-title { color: #fff; }
-    .pricing-bg .section-title em { color: #ffe066; }
-    .pricing-bg .section-sub { color: #94a3b8; }
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 22px;
-    }
-    .plan-card {
-      display: flex; flex-direction: column;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 16px;
-      padding: 28px 22px;
-      position: relative;
-      text-align: center;
-      transition: transform .2s, box-shadow .2s;
-    }
-    .plan-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
-    .plan-card.popular {
-      border-color: var(--yellow);
-      background: rgba(245,158,11,.08);
-    }
-    .popular-badge {
-      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-      background: var(--yellow); color: #000;
-      font-size: .72rem; font-weight: 800; padding: 4px 14px;
-      border-radius: 20px; white-space: nowrap;
-      text-transform: uppercase; letter-spacing: .5px;
-    }
-    .plan-name { font-size: .85rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-    .plan-price-old { font-size: .85rem; color: #6b7280; text-decoration: line-through; margin-bottom: 2px; }
-    .plan-price { font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -1px; }
-    .plan-price .cur { font-size: 1.3rem; font-weight: 700; vertical-align: super; margin-right: 1px; }
-    .plan-price .cents { font-size: 1.4rem; font-weight: 800; }
-    .plan-price sub { font-size: .85rem; font-weight: 600; color: #94a3b8; vertical-align: baseline; font-family: 'Inter', sans-serif; margin-left: 3px; }
-    .plan-card.popular .plan-price { color: #ffe066; }
-    .plan-installments { font-size: .8rem; color: #94a3b8; margin: 4px 0 18px; }
-    .plan-savings {
-      background: rgba(245,158,11,.12); color: #ffe066;
-      border-radius: 8px; padding: 10px; margin: -6px 0 18px;
-      font-size: .9rem; font-weight: 800; line-height: 1.4;
-    }
-    .plan-savings small { display: block; font-size: .75rem; font-weight: 400; color: #cbd5e1; margin-top: 4px; }
-    .plan-card.popular .plan-savings { border: 1px solid var(--yellow); font-size: 1.05rem; }
-    .plan-features { list-style: none; text-align: left; margin-bottom: 22px; display: flex; flex-direction: column; gap: 8px; }
-    .plan-features li { font-size: .85rem; color: #cbd5e1; display: flex; gap: 8px; align-items: flex-start; }
-    .plan-features li::before { content: "✅"; flex-shrink: 0; }
-    .plan-units { font-size: .78rem; color: var(--yellow); margin-bottom: 14px; font-weight: 600; }
-    .btn-buy {
-      display: block; width: 100%; margin-top: auto;
-      background: var(--blue);
-      color: #fff; font-weight: 700; font-size: 1rem;
-      padding: 14px; border-radius: 10px;
-      border: none; cursor: pointer;
-      transition: background .2s, transform .1s;
-      text-align: center;
-    }
-    .btn-buy:hover { background: var(--blue-dark); transform: scale(1.02); }
-    .plan-card.popular .btn-buy { background: var(--yellow); color: #000; }
-    .plan-card.popular .btn-buy:hover { background: #d97706; }
-    .plan-guarantee { font-size: .75rem; color: #6b7280; margin-top: 10px; }
-
-    /* ─── GUARANTEE ─── */
-    .guarantee-box {
-      background: #f0fdf4; border: 2px solid #86efac;
-      border-radius: 16px; padding: 36px 28px; text-align: center; max-width: 560px; margin: 0 auto;
-    }
-    .guarantee-icon { font-size: 3rem; margin-bottom: 12px; }
-    .guarantee-box h2 { font-size: 1.4rem; font-weight: 800; color: var(--green); margin-bottom: 10px; }
-    .guarantee-box p { color: #374151; font-size: .95rem; line-height: 1.6; }
-
-    /* ─── RATINGS ─── */
-    .rating-hero { text-align: center; margin-bottom: 36px; }
-    .rating-hero .big-stars { font-size: 2rem; color: var(--yellow); }
-    .rating-hero .score { font-size: 3.5rem; font-weight: 900; color: var(--dark); }
-    .rating-hero .count { color: var(--gray); font-size: .9rem; }
-    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-    .review-card {
-      background: #fff; border: 1px solid var(--border);
-      border-radius: 14px; padding: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.06);
-    }
-
-    /* ─── TRUST ─── */
-    .trust-bg { background: var(--light); }
-    .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 20px; }
-    .trust-card {
-      background: #fff; border: 1px solid var(--border);
-      border-radius: 14px; padding: 24px 18px; text-align: center;
-    }
-    .trust-icon { font-size: 2rem; margin-bottom: 10px; }
-    .trust-card h4 { font-size: .9rem; font-weight: 700; margin-bottom: 6px; }
-    .trust-card p { font-size: .8rem; color: var(--gray); }
-
-    /* ─── FAQ ─── */
-    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
-    .faq-item { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .faq-q {
-      width: 100%; background: none; border: none;
-      padding: 18px 20px; text-align: left;
-      font-size: .95rem; font-weight: 700; cursor: pointer;
-      display: flex; justify-content: space-between; align-items: center;
-      transition: background .15s;
-    }
-    .faq-q:hover { background: var(--light); }
-    .faq-q .arrow { transition: transform .3s; font-size: .8rem; color: var(--gray); }
-    .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
-    .faq-a { display: none; padding: 0 20px 18px; font-size: .9rem; color: var(--gray); line-height: 1.7; }
-    .faq-item.open .faq-a { display: block; }
-
-    /* ─── FINAL CTA ─── */
-    .final-cta {
-      background: linear-gradient(135deg, #e41c1c, #b91010);
-      color: #fff; text-align: center; padding: 60px 20px;
-    }
-    .final-cta h2 { font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 900; margin-bottom: 14px; }
-    .final-cta p { font-size: 1rem; color: rgba(255,255,255,.85); margin-bottom: 28px; }
-    .btn-cta-final {
-      display: inline-block;
-      background: var(--yellow); color: #000;
-      font-size: 1.2rem; font-weight: 900;
-      padding: 18px 48px; border-radius: 12px;
-      border: none; cursor: pointer;
-      text-transform: uppercase; letter-spacing: 1px;
-      box-shadow: 0 6px 24px rgba(0,0,0,.25);
-      transition: transform .15s, box-shadow .15s;
-      animation: glow 2s ease-in-out infinite;
-    }
-    .btn-cta-final:hover { transform: scale(1.05); box-shadow: 0 10px 32px rgba(0,0,0,.35); }
-    @keyframes glow { 0%,100%{box-shadow:0 6px 24px rgba(0,0,0,.25)} 50%{box-shadow:0 6px 36px rgba(245,158,11,.6)} }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--dark); color: #9ca3af;
-      text-align: center; padding: 36px 20px;
-      font-size: .82rem;
-    }
-    footer .footer-links { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 16px; }
-    footer .footer-links a { color: #9ca3af; transition: color .15s; }
-    footer .footer-links a:hover { color: #fff; }
-    .payment-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
-    .payment-chip {
-      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
-      padding: 5px 14px; border-radius: 6px; font-size: .8rem; font-weight: 600; color: #e5e7eb;
-    }
-
-    /* ─── WHATSAPP ─── */
-    .faq-a a { color: var(--green); font-weight: 600; text-decoration: underline; }
-    .wa-float {
-      position: fixed; right: 18px; bottom: 18px; z-index: 1000;
-      width: 58px; height: 58px; border-radius: 50%;
-      background: #25d366; box-shadow: 0 6px 20px rgba(0,0,0,.25);
-      display: flex; align-items: center; justify-content: center;
-      transition: transform .15s;
-    }
-    .wa-float:hover { transform: scale(1.08); }
-    .wa-float svg { width: 32px; height: 32px; fill: #fff; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 600px) {
-      .plans-grid { grid-template-columns: 1fr; }
-      .features-grid { grid-template-columns: 1fr 1fr; }
-      .trust-grid { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="versao-a.css" />
+  <script>document.documentElement.classList.add('js');</script>
 </head>
-<body>
+<body class="v-a" data-tone="dark">
 
 <!-- HERO -->
-<section class="hero">
-  <span class="badge">🔥 Oferta exclusiva – Tempo limitado</span>
-  <h1>O FIM DOS TRAVAMENTOS<br>COM <em>Estrutura própria em On Demand e CDN</em></h1>
-  <p class="sub">Novidade no Brasil! A mesma estrutura usada pelo YouTube e pela Netflix — sinal estável, sem travar, em qualquer dispositivo.</p>
+<p class="offer-strip">Oferta exclusiva – Tempo limitado</p>
 
-  <div class="live-count">
+<section class="hero" data-tone="dark">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <h1>O FIM DOS TRAVAMENTOS<br>COM <em>Estrutura própria em On Demand e CDN</em></h1>
+      <p class="sub">Novidade no Brasil! A mesma estrutura usada pelo YouTube e pela Netflix — sinal estável, sem travar, em qualquer dispositivo.</p>
+      <div class="live-count">
     <span class="live-dot"></span>
     <span id="viewer-count">409</span> pessoas assistindo agora
   </div>
-
-  <!-- VIDEO VSL -->
-  <div class="video-wrap">
-    <video id="vsl" poster="video/poster.jpg" controls preload="metadata" playsinline>
-      <source src="video/vsl.mp4" type="video/mp4" />
-      Seu navegador não suporta vídeo HTML5.
-    </video>
-    <div class="video-overlay" id="video-overlay">
-      <div class="play-btn">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <ul class="hero-bullets">
+        <li>140.000+ Filmes &amp; Séries</li>
+        <li>Canais ao vivo 24h</li>
+        <li>2 Telas Simultâneas</li>
+        <li>Qualidade 4K HD</li>
+        <li>Sem mensalidade surpresa</li>
+        <li>Suporte 24/7</li>
+      </ul>
+    </div>
+    <div class="hero-media reveal">
+      <div class="phone phone-hero">
+      <div class="video-wrap">
+        <video id="vsl" poster="video/poster.jpg" controls preload="metadata" playsinline>
+          <source src="video/vsl.mp4" type="video/mp4" />
+          Seu navegador não suporta vídeo HTML5.
+        </video>
+        <div class="video-overlay" id="video-overlay">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
       </div>
+    
+      </div>
+      <figure class="hero-photo" aria-hidden="true"><img src="img/pipoca.jpg" alt="" loading="eager" /></figure>
     </div>
   </div>
-
-  <ul class="hero-bullets">
-    <li>140.000+ Filmes &amp; Séries</li>
-    <li>Canais ao vivo 24h</li>
-    <li>2 Telas Simultâneas</li>
-    <li>Qualidade 4K HD</li>
-    <li>Sem mensalidade surpresa</li>
-    <li>Suporte 24/7</li>
-  </ul>
 </section>
 
-<hr class="divider" />
 
 <!-- PARCEIROS / LOGOS -->
-<section class="logos-bg">
-  <div class="container">
+<section class="logos-bg" data-tone="light">
+  <div class="wrap">
     <h2 class="section-title">Acesso a <em>Todos os Conteúdos</em> dos Maiores Streamings</h2>
     <p class="section-sub">Tudo reunido com Estrutura própria em On Demand e CDN — sem precisar assinar cada plataforma separadamente</p>
-    <div class="logos-grid">
-      <div class="logo-chip">🎬 Netflix</div>
-      <div class="logo-chip">🎥 Disney+</div>
-      <div class="logo-chip">📺 HBO Max</div>
-      <div class="logo-chip">🎭 Prime Video</div>
-      <div class="logo-chip">⚽ ESPN</div>
-      <div class="logo-chip">🥊 UFC</div>
-      <div class="logo-chip">🎵 Globoplay</div>
-      <div class="logo-chip">🎮 Paramount+</div>
-      <div class="logo-chip">📡 SBT</div>
-      <div class="logo-chip">📡 Globo</div>
-      <div class="logo-chip">📡 Band</div>
-      <div class="logo-chip">📡 Record</div>
-      <div class="logo-chip">🎬 Apple TV+</div>
-      <div class="logo-chip">🏟️ Premiere FC</div>
-      <div class="logo-chip">🎨 Discovery</div>
-      <div class="logo-chip">🧪 National Geo</div>
     </div>
-  </div>
+    <div class="logos-run" data-drift><div class="logos-grid">
+      <div class="logo-chip">Netflix</div>
+      <div class="logo-chip">Disney+</div>
+      <div class="logo-chip">HBO Max</div>
+      <div class="logo-chip">Prime Video</div>
+      <div class="logo-chip">ESPN</div>
+      <div class="logo-chip">UFC</div>
+      <div class="logo-chip">Globoplay</div>
+      <div class="logo-chip">Paramount+</div>
+      <div class="logo-chip">SBT</div>
+      <div class="logo-chip">Globo</div>
+      <div class="logo-chip">Band</div>
+      <div class="logo-chip">Record</div>
+      <div class="logo-chip">Apple TV+</div>
+      <div class="logo-chip">Premiere FC</div>
+      <div class="logo-chip">Discovery</div>
+      <div class="logo-chip">National Geo</div>
+    </div></div>
 </section>
 
-<hr class="divider" />
 
 <!-- FEATURES -->
-<section>
-  <div class="container">
+<section class="features-bg" data-tone="dark">
+  <div class="wrap">
     <h2 class="section-title">Por Que o <em>VisionBox</em> Não Trava Como os Outros?</h2>
     <p class="section-sub">Porque conta com <strong>Estrutura própria em On Demand e CDN</strong> — a mesma estrutura de transmissão do YouTube e da Netflix</p>
+    <div class="features-layout">
+    <figure class="tv reveal" aria-hidden="true">
+      <div class="tv-screen"><img src="img/futebol.jpg" alt="" loading="lazy" /><span class="tv-live">Ao vivo</span></div>
+      <div class="tv-foot"></div>
+    </figure>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">📡</div>
         <h3>Estrutura própria em On Demand e CDN</h3>
         <p>A mesma tecnologia de transmissão usada por YouTube e Netflix: sinal estável em qualquer conexão.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">📺</div>
         <h3>2 Telas Simultâneas</h3>
         <p>2 telas em todos os planos: assista ao mesmo tempo em dispositivos diferentes.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">⚡</div>
         <h3>Zero Travamentos</h3>
         <p>A Estrutura própria em On Demand e CDN entrega imagem fluida e contínua, sem aquele "carregando" no meio do filme.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🌾</div>
         <h3>Ideal para Zona Rural</h3>
         <p>Funciona mesmo em regiões com cobertura de sinal limitada.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔒</div>
         <h3>Controle Parental</h3>
         <p>Proteja o que as crianças assistem com senha exclusiva.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🎬</div>
         <h3>140.000+ Conteúdos</h3>
         <p>Filmes, séries, documentários, animes, infantil e muito mais.</p>
       </div>
     </div>
+    </div>
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- TESTIMONIALS -->
-<section class="testimonials-bg">
-  <div class="container">
+<section class="testimonials-bg" data-tone="light">
+  <div class="wrap">
     <h2 class="section-title">O Que Nossos <em>Clientes Dizem</em></h2>
     <p class="section-sub">Mais de 50.000 famílias já aprovaram</p>
     <div class="testimonials-track">
@@ -596,7 +155,7 @@
           <div class="t-avatar">MA</div>
           <div>
             <div class="t-name">Maria Aparecida</div>
-            <div class="t-time">há 3 dias <span class="verified">✔ Verificado</span></div>
+            <div class="t-time">há 3 dias <span class="verified">Verificado</span></div>
           </div>
         </div>
         <div class="stars">★★★★★</div>
@@ -605,10 +164,10 @@
 
       <div class="testimonial-card">
         <div class="t-header">
-          <div class="t-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">RC</div>
+          <div class="t-avatar">RC</div>
           <div>
             <div class="t-name">Roberto Costa</div>
-            <div class="t-time">há 1 semana <span class="verified">✔ Verificado</span></div>
+            <div class="t-time">há 1 semana <span class="verified">Verificado</span></div>
           </div>
         </div>
         <div class="stars">★★★★★</div>
@@ -617,10 +176,10 @@
 
       <div class="testimonial-card">
         <div class="t-header">
-          <div class="t-avatar" style="background:linear-gradient(135deg,#10b981,#059669)">JS</div>
+          <div class="t-avatar">JS</div>
           <div>
             <div class="t-name">Juliana Santos</div>
-            <div class="t-time">há 2 semanas <span class="verified">✔ Verificado</span></div>
+            <div class="t-time">há 2 semanas <span class="verified">Verificado</span></div>
           </div>
         </div>
         <div class="stars">★★★★★</div>
@@ -629,10 +188,10 @@
 
       <div class="testimonial-card">
         <div class="t-header">
-          <div class="t-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">PO</div>
+          <div class="t-avatar">PO</div>
           <div>
             <div class="t-name">Pedro Oliveira</div>
-            <div class="t-time">há 1 mês <span class="verified">✔ Verificado</span></div>
+            <div class="t-time">há 1 mês <span class="verified">Verificado</span></div>
           </div>
         </div>
         <div class="stars">★★★★★</div>
@@ -641,10 +200,10 @@
 
       <div class="testimonial-card">
         <div class="t-header">
-          <div class="t-avatar" style="background:linear-gradient(135deg,#ec4899,#db2777)">AF</div>
+          <div class="t-avatar">AF</div>
           <div>
             <div class="t-name">Ana Ferreira</div>
-            <div class="t-time">há 1 mês <span class="verified">✔ Verificado</span></div>
+            <div class="t-time">há 1 mês <span class="verified">Verificado</span></div>
           </div>
         </div>
         <div class="stars">★★★★★</div>
@@ -653,10 +212,10 @@
 
       <div class="testimonial-card">
         <div class="t-header">
-          <div class="t-avatar" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">LM</div>
+          <div class="t-avatar">LM</div>
           <div>
             <div class="t-name">Lucas Mendes</div>
-            <div class="t-time">há 2 meses <span class="verified">✔ Verificado</span></div>
+            <div class="t-time">há 2 meses <span class="verified">Verificado</span></div>
           </div>
         </div>
         <div class="stars">★★★★★</div>
@@ -667,84 +226,51 @@
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- DEVICES -->
-<section>
-  <div class="container">
+<section class="devices-bg" data-tone="dark">
+  <div class="wrap devices-layout">
+    <figure class="photo-card reveal" aria-hidden="true"><img src="img/celular.jpg" alt="" loading="lazy" /></figure>
+    <div>
     <h2 class="section-title">Compatível com <em>Todos os Seus Dispositivos</em></h2>
     <p class="section-sub">Um único plano com Estrutura própria em On Demand e CDN, em todos os seus dispositivos</p>
     <div class="devices-grid">
-      <div class="device-chip">📺 Smart TV Samsung</div>
-      <div class="device-chip">📺 Smart TV LG</div>
-      <div class="device-chip">🔥 Fire TV Stick</div>
-      <div class="device-chip">📱 Android</div>
-      <div class="device-chip">🍎 iPhone / iPad</div>
-      <div class="device-chip">💻 Windows / Mac</div>
-      <div class="device-chip">📦 TV Box Android</div>
-      <div class="device-chip">🎮 Chromecast</div>
+      <div class="device-chip">Smart TV Samsung</div>
+      <div class="device-chip">Smart TV LG</div>
+      <div class="device-chip">Fire TV Stick</div>
+      <div class="device-chip">Android</div>
+      <div class="device-chip">iPhone / iPad</div>
+      <div class="device-chip">Windows / Mac</div>
+      <div class="device-chip">TV Box Android</div>
+      <div class="device-chip">Chromecast</div>
+    </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- BÔNUS -->
-<section class="bonus-bg" id="bonus">
-  <div class="container">
-    <div style="text-align:center">
-      <span class="bonus-tag">🎁 Bônus Exclusivos</span>
+<section class="bonus-bg" id="bonus" data-tone="light">
+  <div class="wrap">
+    <div>
+      <span class="bonus-tag">Bônus Exclusivos</span>
     </div>
     <h2 class="section-title">Comprando Hoje, Você <em>Ganha 3 Bônus Grátis</em></h2>
     <p class="section-sub">Mais de R$600 em vantagens — disponíveis somente nesta oferta</p>
 
     <div class="bonus-timer">
-      <p class="bonus-timer-label">⏰ OS BÔNUS SAEM DO AR EM:</p>
+      <p class="bonus-timer-label">OS BÔNUS SAEM DO AR EM:</p>
       <div class="bonus-timer-clock" id="bonus-countdown">15:00</div>
-      <p class="bonus-timer-warn">🔥 Restam poucas vagas com bônus! Quando o cronômetro zerar, os 3 bônus expiram e não voltam.</p>
+      <p class="bonus-timer-warn">Restam poucas vagas com bônus! Quando o cronômetro zerar, os 3 bônus expiram e não voltam.</p>
     </div>
 
     <div class="bonus-list">
-
-      <!-- BÔNUS 1: 2 TELAS -->
       <div class="bonus-card">
-        <div class="bonus-mockup">
-          <svg viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Streaming em duas telas: TV e celular">
-            <defs>
-              <linearGradient id="b1hero" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#e41c1c"/><stop offset="1" stop-color="#1a73e8"/>
-              </linearGradient>
-            </defs>
-            <!-- TV -->
-            <rect x="95" y="14" width="230" height="140" rx="9" fill="#0b1120" stroke="#334155" stroke-width="3"/>
-            <rect x="103" y="22" width="214" height="124" rx="3" fill="#0f172a"/>
-            <rect x="110" y="29" width="120" height="62" rx="5" fill="url(#b1hero)"/>
-            <circle cx="170" cy="60" r="14" fill="rgba(255,255,255,.92)"/>
-            <path d="M165 53 L165 67 L177 60 Z" fill="#0f172a"/>
-            <rect x="238" y="29" width="72" height="18" rx="3" fill="#1e293b"/>
-            <rect x="238" y="51" width="72" height="18" rx="3" fill="#334155"/>
-            <rect x="238" y="73" width="72" height="18" rx="3" fill="#1e293b"/>
-            <rect x="110" y="98" width="38" height="40" rx="4" fill="#8b5cf6"/>
-            <rect x="153" y="98" width="38" height="40" rx="4" fill="#10b981"/>
-            <rect x="196" y="98" width="38" height="40" rx="4" fill="#f59e0b"/>
-            <rect x="239" y="98" width="38" height="40" rx="4" fill="#ec4899"/>
-            <rect x="282" y="98" width="28" height="40" rx="4" fill="#1a73e8"/>
-            <rect x="198" y="154" width="24" height="14" fill="#334155"/>
-            <rect x="166" y="168" width="88" height="7" rx="3.5" fill="#475569"/>
-            <!-- Phone -->
-            <g transform="rotate(5 330 185)">
-              <rect x="298" y="116" width="68" height="124" rx="13" fill="#0b1120" stroke="#334155" stroke-width="3"/>
-              <rect x="304" y="124" width="56" height="108" rx="4" fill="#0f172a"/>
-              <rect x="324" y="120" width="16" height="3" rx="1.5" fill="#334155"/>
-              <rect x="309" y="129" width="46" height="28" rx="4" fill="url(#b1hero)"/>
-              <circle cx="332" cy="143" r="7" fill="rgba(255,255,255,.92)"/>
-              <path d="M329.5 140 L329.5 146 L335 143 Z" fill="#0f172a"/>
-              <rect x="309" y="162" width="46" height="11" rx="2" fill="#334155"/>
-              <rect x="309" y="177" width="46" height="11" rx="2" fill="#1e293b"/>
-              <rect x="309" y="192" width="46" height="11" rx="2" fill="#334155"/>
-              <rect x="309" y="207" width="46" height="11" rx="2" fill="#1e293b"/>
-            </g>
-          </svg>
+        <div class="bonus-mockup reveal" aria-hidden="true">
+          <div class="duo">
+            <div class="tv tv-sm"><div class="tv-screen"><img src="img/familia.jpg" alt="" loading="lazy" /></div><div class="tv-foot"></div></div>
+            <div class="phone phone-sm"><div class="phone-screen"><img src="video/poster.jpg" alt="" loading="lazy" /></div></div>
+          </div>
         </div>
         <div class="bonus-info">
           <span class="bonus-num">Bônus 1</span>
@@ -753,38 +279,12 @@
           <div class="bonus-value"><span class="old">De R$97,00</span> <span class="free">HOJE GRÁTIS</span></div>
         </div>
       </div>
-
-      <!-- BÔNUS 2: SORTEIO PLANO ANUAL -->
       <div class="bonus-card">
-        <div class="bonus-mockup">
-          <svg viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ticket de sorteio de plano anual grátis">
-            <defs>
-              <linearGradient id="b2gold" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#fde68a"/><stop offset="0.5" stop-color="#fbbf24"/><stop offset="1" stop-color="#f59e0b"/>
-              </linearGradient>
-              <radialGradient id="b2glow" cx="0.5" cy="0.45" r="0.65">
-                <stop offset="0" stop-color="#fbbf24" stop-opacity="0.45"/><stop offset="1" stop-color="#fbbf24" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <ellipse cx="210" cy="125" rx="190" ry="115" fill="url(#b2glow)"/>
-            <g fill="#fde68a">
-              <path d="M58 48 l3.5 9 9 3.5 -9 3.5 -3.5 9 -3.5 -9 -9 -3.5 9 -3.5z"/>
-              <path d="M362 58 l2.8 7 7 2.8 -7 2.8 -2.8 7 -2.8 -7 -7 -2.8 7 -2.8z"/>
-              <path d="M350 192 l2.4 6 6 2.4 -6 2.4 -2.4 6 -2.4 -6 -6 -2.4 6 -2.4z"/>
-              <circle cx="66" cy="186" r="3.5"/><circle cx="386" cy="150" r="2.5"/>
-            </g>
-            <g transform="rotate(-6 210 125)">
-              <rect x="78" y="72" width="264" height="108" rx="14" fill="url(#b2gold)" stroke="#d97706" stroke-width="2"/>
-              <circle cx="242" cy="72" r="9" fill="#16243a"/>
-              <circle cx="242" cy="180" r="9" fill="#16243a"/>
-              <line x1="242" y1="86" x2="242" y2="166" stroke="#b45309" stroke-width="2" stroke-dasharray="5 5"/>
-              <text x="98" y="102" font-family="Arial, sans-serif" font-size="11" font-weight="800" fill="#7c2d12" letter-spacing="1">SORTEIO MENSAL</text>
-              <text x="98" y="132" font-family="Arial, sans-serif" font-size="23" font-weight="900" fill="#7c2d12">PLANO ANUAL</text>
-              <text x="98" y="158" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#16243a">100% GRÁTIS</text>
-              <text x="292" y="116" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#7c2d12" text-anchor="middle">Nº DA SORTE</text>
-              <text x="292" y="150" font-family="Arial, sans-serif" font-size="20" font-weight="900" fill="#16243a" text-anchor="middle">0042</text>
-            </g>
-          </svg>
+        <div class="bonus-mockup reveal" aria-hidden="true">
+          <div class="ticket">
+            <div class="ticket-main"><span class="ticket-k">Sorteio mensal</span><strong>Plano anual</strong><span class="ticket-free">100% grátis</span></div>
+            <div class="ticket-stub"><span class="ticket-k">Nº da sorte</span><strong>0042</strong></div>
+          </div>
         </div>
         <div class="bonus-info">
           <span class="bonus-num">Bônus 2</span>
@@ -793,45 +293,17 @@
           <div class="bonus-value"><span class="old">De R$334,00</span> <span class="free">HOJE GRÁTIS</span></div>
         </div>
       </div>
-
-      <!-- BÔNUS 3: GRUPO VIP -->
       <div class="bonus-card">
-        <div class="bonus-mockup">
-          <svg viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Grupo de suporte VIP no aplicativo de mensagens">
-            <defs>
-              <linearGradient id="b3head" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#075e54"/><stop offset="1" stop-color="#128c7e"/>
-              </linearGradient>
-            </defs>
-            <rect x="78" y="12" width="264" height="226" rx="16" fill="#e5ddd5" stroke="#cbd5e1" stroke-width="2"/>
-            <path d="M78 28 a16 16 0 0 1 16 -16 h232 a16 16 0 0 1 16 16 v30 h-264z" fill="url(#b3head)"/>
-            <circle cx="104" cy="35" r="14" fill="#fbbf24"/>
-            <text x="104" y="40" font-family="Arial, sans-serif" font-size="13" font-weight="900" fill="#7c2d12" text-anchor="middle">VIP</text>
-            <text x="126" y="32" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#fff">Suporte VIP</text>
-            <circle cx="130" cy="45" r="3" fill="#22c55e"/>
-            <text x="138" y="48" font-family="Arial, sans-serif" font-size="9" fill="#d1fae5">256 membros · online</text>
-            <!-- crown -->
-            <path d="M306 26 l4 -11 6 7 6 -10 6 10 6 -7 4 11 z" fill="#fbbf24" stroke="#d97706" stroke-width="0.8" transform="scale(0.8) translate(78 8)"/>
-            <!-- received msg -->
-            <rect x="92" y="72" width="156" height="38" rx="9" fill="#ffffff"/>
-            <text x="102" y="88" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#075e54">Equipe VisionBox</text>
-            <text x="102" y="102" font-family="Arial, sans-serif" font-size="9.5" fill="#374151">Bem-vindo ao grupo VIP!</text>
-            <!-- sent msg -->
-            <rect x="168" y="118" width="162" height="30" rx="9" fill="#dcf8c6"/>
-            <text x="178" y="137" font-family="Arial, sans-serif" font-size="9.5" fill="#374151">Suporte rápido demais, valeu!</text>
-            <path d="M312 140 l3 3 6 -7" fill="none" stroke="#34b7f1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M318 140 l3 3 6 -7" fill="none" stroke="#34b7f1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- received msg 2 -->
-            <rect x="92" y="156" width="176" height="44" rx="9" fill="#ffffff"/>
-            <text x="102" y="172" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#075e54">Equipe VisionBox</text>
-            <text x="102" y="186" font-family="Arial, sans-serif" font-size="9.5" fill="#374151">Qualquer dúvida, chama aqui.</text>
-            <text x="102" y="197" font-family="Arial, sans-serif" font-size="9.5" fill="#374151">Estamos 24h com você.</text>
-            <!-- input -->
-            <rect x="92" y="208" width="206" height="20" rx="10" fill="#ffffff"/>
-            <text x="102" y="221" font-family="Arial, sans-serif" font-size="9" fill="#9ca3af">Digite uma mensagem...</text>
-            <circle cx="320" cy="218" r="13" fill="#128c7e"/>
-            <path d="M315 218 l11 -4 -4 4 4 4 z" fill="#fff"/>
-          </svg>
+        <div class="bonus-mockup reveal" aria-hidden="true">
+          <div class="phone phone-chat"><div class="phone-screen">
+            <div class="chat-head"><span class="chat-av">VIP</span><span><b>Suporte VIP</b><small>256 membros, online</small></span></div>
+            <div class="chat-body">
+              <p class="msg in"><b>Equipe VisionBox</b>Bem-vindo ao grupo VIP!</p>
+              <p class="msg out">Suporte rápido demais, valeu!</p>
+              <p class="msg in"><b>Equipe VisionBox</b>Qualquer dúvida, chama aqui. Estamos 24h com você.</p>
+            </div>
+            <div class="chat-input">Digite uma mensagem…</div>
+          </div></div>
         </div>
         <div class="bonus-info">
           <span class="bonus-num">Bônus 3</span>
@@ -845,16 +317,15 @@
 
     <div class="bonus-total">
       <div class="label">Valor total dos bônus:</div>
-      <div class="amount"><span class="strike">R$628,00</span> &nbsp;→&nbsp; GRÁTIS hoje 🎁</div>
+      <div class="amount"><span class="strike">R$628,00</span> &nbsp;→&nbsp; GRÁTIS hoje </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- PRICING -->
-<section class="pricing-bg">
-  <div class="container">
+<section class="pricing-bg" id="planos" data-tone="dark">
+  <div class="wrap">
     <h2 class="section-title">Escolha o <em>Plano Ideal</em> Para Você</h2>
     <p class="section-sub">Todos os planos incluem 7 dias de garantia total</p>
     <div class="plans-grid">
@@ -873,7 +344,7 @@
           <li>Suporte via WhatsApp</li>
         </ul>
         <a href="https://pay.cakto.com.br/eycvgvx_931970" target="_blank" rel="noopener" class="btn-buy">COMPRAR AGORA</a>
-        <p class="plan-guarantee">🛡️ 7 dias de garantia</p>
+        <p class="plan-guarantee">7 dias de garantia</p>
       </div>
 
       <!-- Plano Trimestral -->
@@ -891,7 +362,7 @@
           <li>Suporte via WhatsApp</li>
         </ul>
         <a href="https://pay.cakto.com.br/pb4q7ss_931981" target="_blank" rel="noopener" class="btn-buy">COMPRAR AGORA</a>
-        <p class="plan-guarantee">🛡️ 7 dias de garantia</p>
+        <p class="plan-guarantee">7 dias de garantia</p>
       </div>
 
       <!-- Plano Semestral -->
@@ -909,12 +380,12 @@
           <li>Suporte via WhatsApp</li>
         </ul>
         <a href="https://pay.cakto.com.br/n4cinqr_931983" target="_blank" rel="noopener" class="btn-buy">COMPRAR AGORA</a>
-        <p class="plan-guarantee">🛡️ 7 dias de garantia</p>
+        <p class="plan-guarantee">7 dias de garantia</p>
       </div>
 
       <!-- Plano Anual (MELHOR CUSTO-BENEFÍCIO) -->
       <div class="plan-card popular">
-        <div class="popular-badge">⭐ Melhor Custo-Benefício</div>
+        <div class="popular-badge">Melhor Custo-Benefício</div>
         <div class="plan-name">Anual</div>
         <div class="plan-price-old">No mensal: R$356,40</div>
         <div class="plan-price"><span class="cur">R$</span>147<sub>/ano</sub></div>
@@ -928,33 +399,32 @@
           <li>Suporte prioritário via WhatsApp</li>
         </ul>
         <a href="https://pay.cakto.com.br/5phanuz_931985" target="_blank" rel="noopener" class="btn-buy">COMPRAR AGORA</a>
-        <p class="plan-guarantee">🛡️ 7 dias de garantia</p>
+        <p class="plan-guarantee">7 dias de garantia</p>
       </div>
 
     </div>
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- GUARANTEE -->
-<section>
-  <div class="container">
-    <div class="guarantee-box">
-      <div class="guarantee-icon">🛡️</div>
+<section class="guarantee-bg" data-tone="light">
+  <div class="wrap">
+    <div class="guarantee-box reveal">
+      <div class="g-big" aria-hidden="true">7</div>
+      <div class="g-text">
       <h2>Garantia Total de 7 Dias</h2>
       <p>Se por qualquer motivo você não ficar satisfeito nos primeiros 7 dias, devolvemos <strong>100% do seu dinheiro</strong> sem perguntas. Zero risco para você.</p>
-      <br/>
-      <p style="font-size:.85rem;color:#6b7280">Contato: pixvisionbox@gmail.com</p>
+      <p class="guarantee-contact">Contato: pixvisionbox@gmail.com</p>
+      </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- REVIEWS -->
-<section style="background:var(--light)">
-  <div class="container">
+<section class="reviews-bg" data-tone="light">
+  <div class="wrap">
     <div class="rating-hero">
       <div class="big-stars">★★★★★</div>
       <div class="score">4.9</div>
@@ -967,7 +437,7 @@
           <div class="t-avatar">FM</div>
           <div>
             <div class="t-name">Fernanda Moura</div>
-            <div class="t-time">há 5 meses <span class="verified">✔ Verificado</span></div>
+            <div class="t-time">há 5 meses <span class="verified">Verificado</span></div>
           </div>
         </div>
         <div class="stars">★★★★★</div>
@@ -976,10 +446,10 @@
 
       <div class="review-card">
         <div class="t-header">
-          <div class="t-avatar" style="background:linear-gradient(135deg,#0ea5e9,#2563eb)">TB</div>
+          <div class="t-avatar">TB</div>
           <div>
             <div class="t-name">Thiago Barbosa</div>
-            <div class="t-time">há 7 meses <span class="verified">✔ Verificado</span></div>
+            <div class="t-time">há 7 meses <span class="verified">Verificado</span></div>
           </div>
         </div>
         <div class="stars">★★★★★</div>
@@ -988,10 +458,10 @@
 
       <div class="review-card">
         <div class="t-header">
-          <div class="t-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706)">CA</div>
+          <div class="t-avatar">CA</div>
           <div>
             <div class="t-name">Claudia Almeida</div>
-            <div class="t-time">há 1 ano <span class="verified">✔ Verificado</span></div>
+            <div class="t-time">há 1 ano <span class="verified">Verificado</span></div>
           </div>
         </div>
         <div class="stars">★★★★★</div>
@@ -1002,104 +472,100 @@
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- TRUST SIGNALS -->
-<section class="trust-bg">
-  <div class="container">
+<section class="trust-bg" data-tone="dark">
+  <div class="wrap">
     <h2 class="section-title">Sua <em>Segurança</em> É Nossa Prioridade</h2>
     <div class="trust-grid">
       <div class="trust-card">
-        <div class="trust-icon">⚡</div>
-        <h4>Envio Imediato</h4>
+        <h3>Envio Imediato</h3>
         <p>Acesso liberado na hora após confirmação do pagamento.</p>
       </div>
       <div class="trust-card">
-        <div class="trust-icon">💳</div>
-        <h4>Compra Segura</h4>
+        <h3>Compra Segura</h3>
         <p>Pagamento criptografado. Seus dados estão 100% protegidos.</p>
       </div>
       <div class="trust-card">
-        <div class="trust-icon">🔄</div>
-        <h4>Reembolso Garantido</h4>
+        <h3>Reembolso Garantido</h3>
         <p>7 dias de garantia total. Sem burocracia, sem perguntas.</p>
       </div>
       <div class="trust-card">
-        <div class="trust-icon">🎧</div>
-        <h4>Suporte Profissional</h4>
+        <h3>Suporte Profissional</h3>
         <p>Atendimento humano disponível 24h por dia, 7 dias por semana.</p>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- FAQ -->
-<section id="faq">
-  <div class="container">
-    <h2 class="section-title">Perguntas <em>Frequentes</em></h2>
-    <p class="section-sub">Sua dúvida pode estar aqui!</p>
+<section id="faq" class="faq-bg" data-tone="light">
+  <div class="wrap faq-layout">
+    <div class="faq-aside">
+      <h2 class="section-title">Perguntas <em>Frequentes</em></h2>
+      <p class="section-sub">Sua dúvida pode estar aqui!</p>
+    </div>
     <div class="faq-list">
 
       <div class="faq-item">
-        <button class="faq-q">O QUE É O VISIONBOX? <span class="arrow">▼</span></button>
-        <div class="faq-a">O VisionBox é uma plataforma de streaming com <strong>Estrutura própria em On Demand e CDN</strong> — a mesma estrutura de transmissão usada por YouTube e Netflix. São mais de 140.000 conteúdos entre filmes, séries, canais ao vivo e esportes, com sinal estável e sem travamentos.</div>
+        <button class="faq-q" aria-expanded="false"><span class="faq-n" aria-hidden="true">01</span><span class="faq-t">O que é o VisionBox?</span><span class="arrow" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><div class="faq-a-text">O VisionBox é uma plataforma de streaming com <strong>Estrutura própria em On Demand e CDN</strong> — a mesma estrutura de transmissão usada por YouTube e Netflix. São mais de 140.000 conteúdos entre filmes, séries, canais ao vivo e esportes, com sinal estável e sem travamentos.</div></div></div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q">COMO FUNCIONA O ACESSO? <span class="arrow">▼</span></button>
-        <div class="faq-a">Após a compra, você recebe os dados de acesso pelo WhatsApp. Basta instalar o aplicativo no seu dispositivo preferido e começar a assistir — a Estrutura própria em On Demand e CDN garante imagem fluida, sem travar.</div>
+        <button class="faq-q" aria-expanded="false"><span class="faq-n" aria-hidden="true">02</span><span class="faq-t">Como funciona o acesso?</span><span class="arrow" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><div class="faq-a-text">Após a compra, você recebe os dados de acesso pelo WhatsApp. Basta instalar o aplicativo no seu dispositivo preferido e começar a assistir — a Estrutura própria em On Demand e CDN garante imagem fluida, sem travar.</div></div></div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q">PRECISO COMPRAR ALGUM APARELHO? <span class="arrow">▼</span></button>
-        <div class="faq-a">Não! O VisionBox funciona em dispositivos que você já possui: Smart TV, celular, tablet, computador, Fire Stick, TV Box, entre outros. Sem custo adicional com hardware.</div>
+        <button class="faq-q" aria-expanded="false"><span class="faq-n" aria-hidden="true">03</span><span class="faq-t">Preciso comprar algum aparelho?</span><span class="arrow" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><div class="faq-a-text">Não! O VisionBox funciona em dispositivos que você já possui: Smart TV, celular, tablet, computador, Fire Stick, TV Box, entre outros. Sem custo adicional com hardware.</div></div></div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q">QUAL A VELOCIDADE DE INTERNET NECESSÁRIA? <span class="arrow">▼</span></button>
-        <div class="faq-a">Para qualidade HD, recomendamos pelo menos 10 Mbps. Para 4K, 25 Mbps. A maioria das conexões de internet residencial já suporta sem problemas.</div>
+        <button class="faq-q" aria-expanded="false"><span class="faq-n" aria-hidden="true">04</span><span class="faq-t">Qual a velocidade de internet necessária?</span><span class="arrow" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><div class="faq-a-text">Para qualidade HD, recomendamos pelo menos 10 Mbps. Para 4K, 25 Mbps. A maioria das conexões de internet residencial já suporta sem problemas.</div></div></div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q">POSSO USAR EM MAIS DE UM DISPOSITIVO? <span class="arrow">▼</span></button>
-        <div class="faq-a">Sim! Todos os planos incluem 2 telas simultâneas. Você pode assistir em até 2 dispositivos ao mesmo tempo.</div>
+        <button class="faq-q" aria-expanded="false"><span class="faq-n" aria-hidden="true">05</span><span class="faq-t">Posso usar em mais de um dispositivo?</span><span class="arrow" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><div class="faq-a-text">Sim! Todos os planos incluem 2 telas simultâneas. Você pode assistir em até 2 dispositivos ao mesmo tempo.</div></div></div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q">E SE EU NÃO FICAR SATISFEITO? <span class="arrow">▼</span></button>
-        <div class="faq-a">Sem problemas! Oferecemos garantia total de 7 dias. Se não gostar por qualquer motivo, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia.</div>
+        <button class="faq-q" aria-expanded="false"><span class="faq-n" aria-hidden="true">06</span><span class="faq-t">E se eu não ficar satisfeito?</span><span class="arrow" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><div class="faq-a-text">Sem problemas! Oferecemos garantia total de 7 dias. Se não gostar por qualquer motivo, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia.</div></div></div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q">COMO É FEITO O SUPORTE? <span class="arrow">▼</span></button>
-        <div class="faq-a">Nosso suporte está disponível 24 horas por dia, 7 dias por semana via <a href="https://wa.me/5531982565683" target="_blank" rel="noopener" class="wa-link">WhatsApp (31) 98256-5683</a> e pelo e-mail pixvisionbox@gmail.com. Respondemos em minutos.</div>
+        <button class="faq-q" aria-expanded="false"><span class="faq-n" aria-hidden="true">07</span><span class="faq-t">Como é feito o suporte?</span><span class="arrow" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><div class="faq-a-text">Nosso suporte está disponível 24 horas por dia, 7 dias por semana via <a href="https://wa.me/5531982565683" target="_blank" rel="noopener" class="wa-link">WhatsApp (31) 98256-5683</a> e pelo e-mail pixvisionbox@gmail.com. Respondemos em minutos.</div></div></div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q">ACEITA QUAIS FORMAS DE PAGAMENTO? <span class="arrow">▼</span></button>
-        <div class="faq-a">Aceitamos PIX, cartão de crédito com parcelamento e PicPay. Pagamento 100% seguro.</div>
+        <button class="faq-q" aria-expanded="false"><span class="faq-n" aria-hidden="true">08</span><span class="faq-t">Aceita quais formas de pagamento?</span><span class="arrow" aria-hidden="true"></span></button>
+        <div class="faq-a"><div class="faq-a-in"><div class="faq-a-text">Aceitamos PIX, cartão de crédito com parcelamento e PicPay. Pagamento 100% seguro.</div></div></div>
       </div>
 
     </div>
   </div>
 </section>
 
-<hr class="divider" />
 
 <!-- FINAL CTA -->
-<section class="final-cta" id="comprar">
-  <div class="container">
-    <h2>Não Perca Esta Oferta! ⏰</h2>
+<section class="final-cta" id="comprar" data-tone="dark">
+  <div class="wrap">
+    <h2>Não Perca Esta Oferta! </h2>
     <p>Junte-se a mais de 50.000 famílias que já economizam com o VisionBox.<br>Garantia total de 7 dias. Acesso imediato após pagamento.</p>
     <a href="https://pay.cakto.com.br/eycvgvx_931970" target="_blank" rel="noopener" class="btn-cta-final">QUERO ACESSAR AGORA</a>
-    <p style="margin-top:16px;font-size:.82rem;color:rgba(255,255,255,.7)">🔒 Compra 100% segura &nbsp;|&nbsp; 🛡️ 7 dias de garantia &nbsp;|&nbsp; ⚡ Acesso imediato</p>
+    <p class="final-note">Compra 100% segura &nbsp;|&nbsp; 7 dias de garantia &nbsp;|&nbsp; Acesso imediato</p>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer data-tone="dark">
+  <div class="wrap">
   <div class="footer-links">
     <a href="privacidade.html">Política de Privacidade</a>
     <a href="trocas.html">Trocas e Devoluções</a>
@@ -1113,8 +579,10 @@
     <div class="payment-chip">Mastercard</div>
     <div class="payment-chip">PicPay</div>
   </div>
-  <p style="margin-top:18px">SAC: pixvisionbox@gmail.com &nbsp;|&nbsp; WhatsApp: (31) 98256-5683 &nbsp;|&nbsp; © 2026 VisionBox. Todos os direitos reservados.</p>
-  <p style="margin-top:8px;font-size:.75rem;color:#4b5563">Este produto não possui afiliação com as plataformas mencionadas. Marcas são propriedades de seus respectivos donos.</p>
+  <p class="footer-sac">SAC: pixvisionbox@gmail.com &nbsp;|&nbsp; WhatsApp: (31) 98256-5683 &nbsp;|&nbsp; 2026 VisionBox. Todos os direitos reservados.</p>
+  <p class="footer-legal">Este produto não possui afiliação com as plataformas mencionadas. Marcas são propriedades de seus respectivos donos.</p>
+  <p class="footer-legal">Fotos ilustrativas, Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Bowl_of_Popcorn_(Unsplash).jpg" target="_blank" rel="noopener">Alex Munsell</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Black_Stars_(Ghana_national_football_team)_fans_watching_televised_match.jpg" target="_blank" rel="noopener">Ben Sutherland</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), <a href="https://commons.wikimedia.org/wiki/File:Man_with_smartphone_and_laptop_(Unsplash).jpg" target="_blank" rel="noopener">Alejandro Escamilla</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Watching_the_Saints_on_Thanksgiving.jpg" target="_blank" rel="noopener">Bart Everson</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>).</p>
+  </div>
 </footer>
 
 <!-- WHATSAPP FLUTUANTE -->
@@ -1184,6 +652,43 @@
       setTimeout(tick, 1000);
     }
     tick();
+  })();
+</script>
+<script>
+  // ── EFEITOS DE ROLAGEM: tom claro/escuro, entrada dos blocos e faixa de streamings ──
+  (function () {
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var tones = document.querySelectorAll('[data-tone]:not(body)');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) document.body.dataset.tone = e.target.dataset.tone; });
+      }, { rootMargin: '-50% 0px -50% 0px' });
+      tones.forEach(function (s) { io.observe(s); });
+      if (!calm) {
+        var rv = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -12% 0px' });
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('pre'); rv.observe(el); });
+      }
+    }
+    var run = document.querySelector('[data-drift]');
+    if (run && !calm) {
+      var grid = run.firstElementChild, ticking = false;
+      function drift() {
+        ticking = false;
+        var r = run.getBoundingClientRect(), vh = window.innerHeight;
+        var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+        var max = Math.max(0, grid.scrollWidth - run.clientWidth);
+        grid.style.transform = 'translate3d(' + (-p * max) + 'px,0,0)';
+      }
+      window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
+      window.addEventListener('resize', drift); drift();
+    }
+    document.querySelectorAll('.faq-q').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.faq-item').forEach(function (i) { i.querySelector('.faq-q').setAttribute('aria-expanded', i.classList.contains('open') ? 'true' : 'false'); });
+      });
+    });
   })();
 </script>
 </body>
