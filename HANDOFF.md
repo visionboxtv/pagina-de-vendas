@@ -1,5 +1,11 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: rodapé atualizado com selos de confiança
+- Washington autorizou a publicação com "Pode publicar"; alteração feita pelo Codex. Retirados os dois avisos indicados na imagem (não afiliação e crédito visível da foto).
+- No lugar, três selos com ícones: Checkout Cakto (leva aos planos), Garantia de 7 dias (abre a política de trocas) e Suporte pelo WhatsApp (contato existente). PIX, Visa, Mastercard e PicPay ganharam fundo claro; sem certificações externas inventadas.
+- Conferência local no Chrome: capturas inspecionadas em 390 e 1440 px; três selos e quatro formas de pagamento, sem rolagem lateral em 320, 390, 768 e 1440 px. Comparação automática confirmou que todo o HTML fora do rodapé ficou igual, incluindo vídeo, preços, checkouts e Pixel.
+- Fonte da foto preservada neste registro: Alex Munsell, https://commons.wikimedia.org/wiki/File:Bowl_of_Popcorn_(Unsplash).jpg . A ficha consultada nesta data identifica CC0 1.0; imagem `img/pipoca.jpg` mantida.
+
 ## 2026-11-04: ajustes do dono publicados (commit cc35739)
 - Topo: frase trocada para "A mesma estrutura da Sky e da Netflix."; benefícios: "Mais de 140 mil filmes, séries e canais ao vivo" (juntou dois itens) e "Sem cobrança surpresa"; bolinhas dos benefícios do topo em verde; nota do vídeo: "Clique para reproduzir o vídeo".
 - Imagens do dono (convertidas para JPG leve): servidores no lugar da TV com futebol em "Por que não trava" (no celular é a primeira imagem da página; no computador a pipoca atrás do vídeo continua), showroom VisionBox em "Compatível com todos os dispositivos", arte das 2 telas no Bônus 1 (clicável, leva aos planos). Removidas futebol, celular e família; crédito no rodapé só da pipoca.

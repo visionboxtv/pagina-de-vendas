@@ -301,10 +301,15 @@ footer { padding-block: var(--space-8) var(--space-7); border-top: 1px solid var
 footer .footer-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-bottom: var(--space-5); }
 footer .footer-links a { color: var(--fg); font-weight: 500; transition: color var(--dur-fast) var(--ease); }
 footer .footer-links a:hover { color: var(--red); }
+.trust-badges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6); }
+.trust-badge { display: flex; align-items: center; gap: var(--space-3); min-width: 0; padding: var(--space-5) var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-1); background: var(--bg-2); transition: border-color var(--dur-fast) var(--ease); }
+.trust-badge:hover { border-color: var(--live); }
+.trust-badge > svg { flex: none; width: 36px; height: 36px; color: var(--live); }
+.trust-badge strong { display: block; color: var(--fg); font-weight: 700; line-height: 1.4; }
+.trust-badge small { display: block; margin-top: var(--space-1); font-size: 0.8125rem; color: var(--muted); }
 .payment-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-5); }
-.payment-chip { padding: var(--space-1) var(--space-3); border-radius: var(--radius-1); font-weight: 600; border: 1px solid var(--line); }
-.footer-legal { margin-top: var(--space-2); font-size: 0.8125rem; }
-.footer-legal a { text-decoration: underline; }
+.payment-chip { display: flex; align-items: center; justify-content: center; min-height: 40px; min-width: 82px; padding: var(--space-2) var(--space-3); border-radius: var(--radius-1); font-weight: 700; color: var(--day-ink); background: var(--day-2); }
+@media (max-width: 62rem) { .trust-badges { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); } }
 
 /* ─── WhatsApp ─── */
 .wa-float { position: fixed; right: var(--space-4); bottom: var(--space-4); z-index: 50; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--wa); box-shadow: var(--shadow-2); transition: transform var(--dur-fast) var(--ease); }
