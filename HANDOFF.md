@@ -1,5 +1,14 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-03: ajustes publicados com autorização do dono
+- Publicado o commit `a415f0b` em `main`, após a confirmação "alterar e publicar no site". Site: https://sales-page-khaki.vercel.app.
+- Mensal anunciado no HTML: R$29,70. Mantidos trimestral R$67, semestral R$97 e anual R$147, com os mesmos links da Cakto.
+- Economia destacada contra o novo mensal: R$22,10 em 3 meses, R$81,20 em 6 meses e R$209,40 em 12 meses (anual cerca de 59% menor; equivalente a R$12,25/mês). Botões dos cartões alinhados no computador.
+- Textos, FAQ, depoimento e ilustração passaram a informar somente 2 telas, sem terceira tela de bônus. As referências textuais a OTT+ foram substituídas por "Estrutura própria em On Demand e CDN".
+- Verificação: links preservados, contas conferidas e visual inspecionado em 1440px e 390px, sem rolagem lateral nessas larguras. Em 320px, há transbordamento anterior nos cartões de benefícios; não foi ampliado no comparativo local com fontes padrão, nem corrigido neste escopo.
+- Produção respondeu HTTP 200 e entregou HTML idêntico ao arquivo publicado (normalizando CRLF/LF; SHA-256 `f5f531300694d8667d9d3d533be6233b34ce5464143ebc871018d31ada3e1188`).
+- Limite: o vídeo e o checkout externo da Cakto não foram alterados. O valor efetivamente cobrado no checkout não foi confirmado nesta entrega.
+
 ## 2026-10-21: pasta adotada pelo Cérebro
 - A pasta já existia: o Cérebro a registrou no mapa e criou só o que faltava, sem levar nada dela para o Git. Motor: claude.
 - Origem: estava arquivada em `_Arquivo/sales-page` desde 2026-07-25; voltou a pedido do dono, com o nome da pasta igual ao do repositório.
