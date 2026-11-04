@@ -335,3 +335,38 @@ footer .footer-links a:hover { color: var(--red); }
 
 /* só para as capturas de tela estáticas: cada seção pinta o próprio tom */
 .captura [data-tone]:not(body) { background-color: var(--bg); color: var(--fg); }
+
+/* ─── Botão do topo, liberado depois do vídeo ─── */
+.hero-media { flex-direction: column; align-items: center; gap: var(--space-4); }
+.btn-hero {
+  position: relative; z-index: 2; display: inline-flex; align-items: center; justify-content: center;
+  min-height: 52px; padding: 0 var(--space-7); border-radius: var(--pill); white-space: nowrap;
+  font-weight: 800; font-size: var(--text-lg); color: var(--red-ink); background: var(--red); box-shadow: var(--shadow-red);
+  transition: background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.btn-hero:hover { background: var(--red-deep); }
+.btn-hero:active { transform: scale(0.98); }
+.btn-hero-nota { position: relative; z-index: 2; font-size: var(--text-sm); color: var(--muted); text-align: center; }
+.js .btn-hero { display: none; }
+.js.liberado .btn-hero { display: inline-flex; animation: surge 600ms var(--ease) both; }
+.js.liberado .btn-hero-nota, html:not(.js) .btn-hero-nota { display: none; }
+@keyframes surge { from { opacity: 0; transform: translateY(12px) scale(0.96); } }
+.hero .sub { font-size: var(--text-lg); max-width: 36ch; }
+
+/* ─── Celular: título, vídeo inteiro na tela, depois o resto ─── */
+@media (max-width: 40rem) {
+  .offer-strip { padding-block: var(--space-1); }
+  .hero { min-height: 0; padding-block: var(--space-4) var(--space-7); }
+  .hero-grid { gap: var(--space-4); }
+  .hero h1 { order: 1; font-size: clamp(1.75rem, 7.4vw, 2.25rem); }
+  .hero h1 em { margin-top: var(--space-1); }
+  .hero-grid > .hero-media { order: 2; }
+  .hero .sub { order: 3; font-size: var(--text-md); }
+  .live-count { order: 4; }
+  .hero-bullets { order: 5; }
+  .hero-photo { display: none; }
+  .phone-hero { width: min(100%, 300px, calc((100svh - 230px) * 0.6)); padding: var(--space-1); border-radius: 32px; }
+  .phone-hero::before { top: var(--space-2); width: 56px; height: 16px; margin-left: -28px; }
+  .phone-hero .video-wrap { border-radius: 28px; }
+  .play-btn { width: 72px; height: 72px; }
+}

@@ -40,7 +40,7 @@
   <div class="wrap hero-grid">
     <div class="hero-text">
       <h1>O FIM DOS TRAVAMENTOS<br>COM <em>Estrutura própria em On Demand e CDN</em></h1>
-      <p class="sub">Novidade no Brasil! A mesma estrutura usada pelo YouTube e pela Netflix — sinal estável, sem travar, em qualquer dispositivo.</p>
+      <p class="sub">A mesma estrutura do YouTube e da Netflix: sinal estável, sem travar.</p>
       <div class="live-count">
     <span class="live-dot"></span>
     <span id="viewer-count">409</span> pessoas assistindo agora
@@ -67,8 +67,9 @@
           </div>
         </div>
       </div>
-    
       </div>
+      <a href="#planos" class="btn-hero" id="btn-liberado">QUERO ACESSAR AGORA</a>
+      <p class="btn-hero-nota" id="nota-liberado">Assista ao vídeo: a oferta aparece logo abaixo.</p>
       <figure class="hero-photo" aria-hidden="true"><img src="img/pipoca.jpg" alt="" loading="eager" /></figure>
     </div>
   </div>
@@ -655,6 +656,22 @@
   })();
 </script>
 <script>
+  // ── BOTÃO LIBERADO DEPOIS DO VÍDEO ──
+  // O botão do topo aparece quando a pessoa assiste LIBERAR_EM segundos do vídeo
+  // (ou chega ao fim). Quem já liberou antes vê o botão direto.
+  (function () {
+    var LIBERAR_EM = 90;
+    var video = document.getElementById('vsl'), btn = document.getElementById('btn-liberado'), nota = document.getElementById('nota-liberado');
+    if (!video || !btn) return;
+    function liberar() {
+      document.documentElement.classList.add('liberado');
+      try { localStorage.setItem('vb_liberado', '1'); } catch (e) {}
+    }
+    try { if (localStorage.getItem('vb_liberado') === '1') liberar(); } catch (e) {}
+    video.addEventListener('timeupdate', function () { if (video.currentTime >= LIBERAR_EM) liberar(); });
+    video.addEventListener('ended', liberar);
+  })();
+
   // ── EFEITOS DE ROLAGEM: tom claro/escuro, entrada dos blocos e faixa de streamings ──
   (function () {
     var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
