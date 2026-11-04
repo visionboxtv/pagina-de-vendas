@@ -1,6 +1,15 @@
 # HANDOFF: Página de Vendas
 
-## 2026-11-03: cronômetro de 3 h e avisos de compra (ramo local `cronometro-avisos`, NÃO publicado)
+## 2026-11-03: cronômetro e botão de 60 s PUBLICADOS pelo Codex
+- Autorização do dono: "Use o Codex para aplicar e publicar tudo". Integrado `cronometro-avisos` à `main` e enviado até `122ea65`; a pasta voltou à `main`.
+- Conferido em https://sales-page-khaki.vercel.app: HTML idêntico ao local (normalizando CRLF/LF; SHA-256 `72eb17c3489b50878fd3426ae8a25b87ba647f11102d80e8b5dcafddce2092f0`), CSS e privacidade idênticos; vídeo responde 206; páginas legais acessíveis. Links dos quatro checkouts e Pixel preservados.
+- Ativos: cronômetro de 3 h + 5 a 25 min persistente, aviso de 10 min ao zerar, encerramento da oferta daquele navegador e botão com 60 s de vídeo. Cronômetro de bônus de 15 min mantido. Persistência depende do armazenamento do navegador; não impede abrir outro navegador ou acessar um link de checkout já conhecido.
+- API de avisos reais publicada, mas NÃO ativada: `/api/vendas` retorna 200 com lista vazia; POST `/api/venda` retorna 503 "não configurado". Falta conectar Upstash Redis, definir `CAKTO_WEBHOOK_SECRET` na Vercel e cadastrar o webhook `purchase_approved` dos quatro planos na Cakto. Não há credenciais da CLI Vercel nem acesso ao navegador nesta sessão (host indisponível); configuração externa não foi alterada.
+- Revisão da API: apenas ofertas conhecidas, pagamento aprovado e data real nas últimas 48 h; deduplicação atômica por pedido; suporte a webhook V1/V2; falhas do banco e assinaturas incompletas tratadas. Política de privacidade identifica o Upstash.
+- Verificações locais com banco simulado: origem falsa, assinatura HMAC, retentativas, outros produtos, vendas antigas/não pagas, V2, minimização de dados e falha do banco; lógica do prazo, recarga, aviso, encerramento e botão 59/60 s. Sem teste de venda real ou nova inspeção visual por navegador nesta sessão.
+- Simulação continua apenas local. `/teste/avisos-simulados.js` e `/HANDOFF.md` respondem 404 no site. Fotos provisórias mantidas; preço efetivamente cobrado na Cakto ainda não conferido.
+
+## 2026-11-03: preparação do cronômetro e dos avisos (histórico; publicação acima)
 - Cronômetro no topo: 3 h + 5 a 25 min por visitante, gravado no navegador (recarregar não reinicia). Ao zerar com a pessoa na página, abre o aviso "Esta oferta sai do ar para você em 10:00"; passados os 10 min, os planos e o botão final somem neste acesso e aparece o contato do WhatsApp. O cronômetro de 15 min dos bônus continua igual.
 - Botão do topo liberado com 60 s de vídeo (antes 90 s).
 - Avisos de compra só com vendas reais: `api/venda.mjs` recebe o webhook da Cakto (purchase_approved, valida o secret ou a assinatura HMAC) e guarda só primeiro nome e plano no Upstash Redis; `api/vendas.mjs` entrega as das últimas 48 h. Sem configuração, nada aparece. Testado com Redis falso local.
