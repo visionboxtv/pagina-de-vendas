@@ -1,5 +1,10 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: VSL V4 publicada
+- O dono enviou a VSL V4 (Área de Trabalho, 1080x1920, 5:15, 335 MB) para aplicar na página. Convertida para `video/vsl-v4.mp4` (720x1280, H.264 CRF 28, AAC 96k, início rápido; 44 MB) e capa `video/poster-v4.jpg` (quadro de 3 s). O vídeo antigo `video/vsl.mp4` continua no repositório, sem uso.
+- Publicado (commit `9e5b922`) e conferido no ar: HTML com a V4, vídeo e capa respondendo 200, os 4 links da Cakto e o Pixel iguais. No celular o vídeo segue inteiro na primeira tela (390x844 e 375x667). O botão continua liberando aos 60 s; a V4 pede o clique no fim (cerca de 5:00).
+- Avisos reais: a configuração na Vercel (Upstash Redis e CAKTO_WEBHOOK_SECRET) e o webhook na Cakto seguem pendentes; o controle do navegador foi bloqueado pela permissão do modo automático do Claude Code em 2026-11-04. /api/vendas responde lista vazia.
+
 ## 2026-11-03: cronômetro e botão de 60 s PUBLICADOS pelo Codex
 - Autorização do dono: "Use o Codex para aplicar e publicar tudo". Integrado `cronometro-avisos` à `main` e enviado até `122ea65`; a pasta voltou à `main`.
 - Conferido em https://sales-page-khaki.vercel.app: HTML idêntico ao local (normalizando CRLF/LF; SHA-256 `72eb17c3489b50878fd3426ae8a25b87ba647f11102d80e8b5dcafddce2092f0`), CSS e privacidade idênticos; vídeo responde 206; páginas legais acessíveis. Links dos quatro checkouts e Pixel preservados.
