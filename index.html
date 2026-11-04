@@ -729,51 +729,7 @@
     raiz.classList.add('com-relogio'); passo();
   })();
 
-  // ── AVISOS DE COMPRA (somente vendas reais) ──
-  // Lê /api/vendas, que guarda as compras aprovadas enviadas pela Cakto (primeiro nome e plano).
-  // Sem vendas recentes, nada aparece.
-  (function () {
-    var PLANOS = { mensal: 'assinou por 1 mês', trimestral: 'assinou por 3 meses', semestral: 'assinou por 6 meses', anual: 'assinou por 1 ano' };
-    var caixa = document.getElementById('avisos'); if (!caixa) return;
-    function quando(min) {
-      if (min < 2) return 'agora mesmo';
-      if (min < 60) return 'há ' + min + ' min';
-      var h = Math.floor(min / 60); return h === 1 ? 'há 1 hora' : 'há ' + h + ' horas';
-    }
-    function mostrar(v, rotulo) {
-      var el = document.createElement('div'); el.className = 'aviso';
-      var ini = document.createElement('span'); ini.className = 'aviso-ini'; ini.setAttribute('aria-hidden', 'true'); ini.textContent = v.nome.charAt(0);
-      var txt = document.createElement('span'); txt.className = 'aviso-txt';
-      var b = document.createElement('b'); b.textContent = v.nome;
-      txt.appendChild(b); txt.appendChild(document.createTextNode(' ' + (PLANOS[v.plano] || 'assinou')));
-      var sm = document.createElement('small'); sm.textContent = quando(v.minutos) + (rotulo ? ' · ' + rotulo : ''); txt.appendChild(sm);
-      el.appendChild(ini); el.appendChild(txt); caixa.appendChild(el);
-      requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add('in'); }); });
-      setTimeout(function () { el.classList.remove('in'); setTimeout(function () { el.remove(); }, 500); }, 6000);
-    }
-    function rodar(lista, rotulo, primeiro, intervalo) {
-      var i = 0;
-      function proximo() {
-        if (i >= lista.length) return;
-        if (!document.documentElement.classList.contains('modal-aberto')) mostrar(lista[i++], rotulo);
-        setTimeout(proximo, intervalo[0] + Math.random() * (intervalo[1] - intervalo[0]));
-      }
-      setTimeout(proximo, primeiro);
-    }
-    window.vbAvisos = rodar;
-    if (location.protocol.indexOf('http') !== 0) return;
-    fetch('/api/vendas', { headers: { accept: 'application/json' } })
-      .then(function (r) { return r.ok ? r.json() : { vendas: [] }; })
-      .then(function (d) { if (d && d.vendas && d.vendas.length) rodar(d.vendas, '', 15000, [25000, 45000]); })
-      .catch(function () {});
-  })();
 
-  // Modo de teste dos avisos: só no computador (arquivo local ou localhost) e com ?teste-avisos no endereço.
-  (function () {
-    var local = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-    if (!local || location.search.indexOf('teste-avisos') < 0) return;
-    var s = document.createElement('script'); s.src = 'teste/avisos-simulados.js'; document.body.appendChild(s);
-  })();
 
   // ── EFEITOS DE ROLAGEM: tom claro/escuro, entrada dos blocos e faixa de streamings ──
   (function () {
@@ -811,5 +767,6 @@
     });
   })();
 </script>
+<script type="module" src="avisos.js"></script>
 </body>
 </html>

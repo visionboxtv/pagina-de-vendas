@@ -1,4 +1,4 @@
-// Recebe o webhook da Cakto (evento purchase_approved) e guarda só o primeiro nome e o plano
+// Recebe o webhook da Cakto (evento purchase_approved) e guarda só primeiro nome, plano e valor
 // da compra aprovada, para os avisos de compra da página. Nada de e-mail, telefone ou sobrenome.
 // Variáveis na Vercel: CAKTO_WEBHOOK_SECRET e as do Upstash Redis (KV_REST_API_URL/KV_REST_API_TOKEN
 // ou UPSTASH_REDIS_REST_URL/UPSTASH_REDIS_REST_TOKEN).
@@ -79,7 +79,8 @@ export async function POST(request) {
       const em = Date.parse(d.paidAt);
       const idade = Date.now() - em;
       if (!plano || !nome || !id || id.length > 128 || !Number.isFinite(em) || idade < 0 || idade > JANELA_MS) continue;
-      const registro = JSON.stringify({ nome, plano, em, id });
+      const valor = typeof d.amount === 'number' || typeof d.amount === 'string' ? Number(d.amount) : NaN;
+      const registro = JSON.stringify({ nome, plano, em, id, ...(Number.isFinite(valor) && valor > 0 ? { valor } : {}) });
       const { result } = await db('', ['EVAL', GRAVAR, '2', CHAVE, `${CHAVE}:${id}`, registro, String(GUARDAR - 1), String(JANELA_MS / 1000)]);
       recebidos += Number(result) === 1 ? 1 : 0;
     }

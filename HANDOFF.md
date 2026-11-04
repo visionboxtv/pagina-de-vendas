@@ -1,5 +1,13 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: 48 compras comprovadas nos avisos da página
+- Autorização do dono: selecionar e publicar 48 compras reais da base, 12 de cada modalidade, embaralhadas, com card minimalista, sem horários. Complemento paralelo do dono para mostrar valores foi integrado nesta entrega.
+- Fonte: planilhas de clientes e pagamentos das contas Vision Box 1 e Vision Box 2, exportadas em 2026-08-23 na pasta sensível do Clic CRM. Pagamentos associados ao cliente pela coluna `usuario`; selecionados 48 primeiros nomes distintos, com data válida e valor positivo, 12 mensais, 12 trimestrais, 12 semestrais e 12 anuais. Modalidade e valor vêm do pagamento original, não do cadastro atual nem do preço da página.
+- Dados públicos mínimos em `lib/compras-historicas.mjs`: primeiro nome, modalidade e valor pago. Comprovantes de linhas de origem e hashes dos quatro arquivos ficam apenas no arquivo temporário local `pag-compras-historicas-auditoria.json`, fora do Git. Nenhuma planilha, login, telefone, sobrenome, identificador de cliente ou segredo foi incluído.
+- `avisos.js`: uma notificação por vez, por 7 s, primeiro aviso e seguintes em intervalos aleatórios entre 45 e 83 s. Histórico embaralhado a cada ciclo, alternando modalidades quando possível; consulta `/api/vendas` a cada minuto, prioriza eventos novos e não repete o mesmo evento. Pausa em aba oculta ou modal aberto; botão para fechar. Texto sem data, horário ou alegação de compra recente.
+- Novas vendas: integração existente com a Cakto foi preservada, incluindo valor efetivamente pago. A API agora fornece um identificador derivado por hash para evitar repetições, sem revelar o identificador do pedido. A ativação externa (Upstash, segredo e webhook Cakto) segue pendente; o histórico funciona independentemente disso.
+- Verificação: 48 registros, primeiros nomes distintos, 12 por modalidade, pagamento positivo e data passada; webhook/API com banco simulado, rejeição de origem inválida, valor correto e deduplicação; navegador percorreu as 48 compras e uma nova venda, validou 45–83 s, prioridade, não repetição, pausa e fechamento. Capturas inspecionadas em 390/1440 px e encaixe também em 320 px; sem erros de JavaScript. Teste simulado continua só em localhost com rótulo teste.
+
 ## 2026-11-04: rodapé atualizado com selos de confiança
 - Washington autorizou a publicação com "Pode publicar"; alteração feita pelo Codex. Retirados os dois avisos indicados na imagem (não afiliação e crédito visível da foto).
 - No lugar, três selos com ícones: Checkout Cakto (leva aos planos), Garantia de 7 dias (abre a política de trocas) e Suporte pelo WhatsApp (contato existente). PIX, Visa, Mastercard e PicPay ganharam fundo claro; sem certificações externas inventadas.
@@ -86,3 +94,11 @@
 ## 2026-10-21: publicada
 - O dono autorizou ("Pode publicar a página de vendas corrigida."); push de 3 commits até 11399cd em `main`. Registro sensível S-20261021-003 no Cérebro.
 - A frase dos termos sobre os planos não se renovarem sozinhos foi publicada sem confirmação explícita do dono; rever se algum plano virar assinatura.
+# 2026-11-04 — complemento em integração: valor nos avisos de compra
+
+- Pedido mais recente do dono: mostrar também o valor do plano no card. `index.html` acrescenta `por R$ ...` quando o registro contém `valor` numérico positivo, formatado em reais. Não substitui valor ausente pelo preço atual.
+- `api/venda.mjs` guarda o `data.amount` da compra aprovada como `valor`; `api/vendas.mjs` entrega esse campo quando válido. Política de privacidade atualizada para incluir o valor.
+- Para o agente c-b4f37102e5a8b3a4: nas 48 compras selecionadas do Clic CRM, manter também `valor` numérico do registro real; preservar este acréscimo ao trocar o texto do card. Se faltar valor, não inventar. Este complemento não foi publicado nem recebeu commit separado porque há outro agente ativo. A sincronização final reúne as alterações.
+- Verificado localmente: webhook e API com Redis simulado, texto em reais e omissao de valores ausentes/invalidos; sintaxe dos modulos e diff conferidos.
+
+#

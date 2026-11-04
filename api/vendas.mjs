@@ -1,6 +1,7 @@
-// Entrega à página as compras aprovadas mais recentes (primeiro nome, plano e há quantos minutos).
+// Entrega à página as compras aprovadas mais recentes (primeiro nome, plano, valor e há quantos minutos).
 // Sem banco configurado ou sem vendas recentes, responde lista vazia e a página não mostra aviso.
 import { redis } from './venda.mjs';
+import { createHash } from 'node:crypto';
 
 const CHAVE = 'vb:vendas';
 const JANELA_HORAS = 48;
@@ -20,7 +21,9 @@ export async function GET() {
       const chave = v.id || `${v.nome}|${v.plano}`;
       if (vistos.has(chave)) continue;
       vistos.add(chave);
-      vendas.push({ nome: v.nome, plano: v.plano, minutos });
+      const valor = typeof v.valor === 'number' ? v.valor : NaN;
+      const evento = createHash('sha256').update(String(v.id || `${v.nome}|${v.plano}|${v.em}`)).digest('hex').slice(0, 24);
+      vendas.push({ evento, nome: v.nome, plano: v.plano, minutos, ...(Number.isFinite(valor) && valor > 0 ? { valor } : {}) });
       if (vendas.length >= MAXIMO) break;
     }
     return new Response(JSON.stringify({ vendas }), { headers: cabecalhos });
