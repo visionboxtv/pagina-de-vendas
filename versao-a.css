@@ -234,7 +234,7 @@ body[data-tone="light"] .verified { color: var(--verified-day); }
 .btn-buy:hover { border-color: var(--red); }
 .plan-card.popular .btn-buy, .btn-cta-final { color: var(--red-ink); background: var(--red); border-color: var(--red); box-shadow: var(--shadow-red); }
 .plan-card.popular .btn-buy:hover, .btn-cta-final:hover { background: var(--red-deep); border-color: var(--red-deep); }
-.btn-buy:active, .btn-cta-final:active, .faq-q:active, .wa-float:active { transform: scale(0.98); }
+.btn-buy:active, .btn-cta-final:active, .faq-q:active { transform: scale(0.98); }
 .btn-buy:disabled, .btn-buy[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
 .plan-guarantee { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--muted); text-align: center; }
 
@@ -310,11 +310,6 @@ footer .footer-links a:hover { color: var(--red); }
 .payment-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-5); }
 .payment-chip { display: flex; align-items: center; justify-content: center; min-height: 40px; min-width: 82px; padding: var(--space-2) var(--space-3); border-radius: var(--radius-1); font-weight: 700; color: var(--day-ink); background: var(--day-2); }
 @media (max-width: 62rem) { .trust-badges { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); } }
-
-/* ─── WhatsApp ─── */
-.wa-float { position: fixed; right: var(--space-4); bottom: var(--space-4); z-index: 50; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--wa); box-shadow: var(--shadow-2); transition: transform var(--dur-fast) var(--ease); }
-.wa-float:hover { transform: scale(1.06); }
-.wa-float svg { width: 32px; height: 32px; fill: var(--wa-ink); }
 
 @media (max-width: 40rem) {
   section { padding-block: var(--space-9); }
@@ -409,7 +404,7 @@ footer .footer-links a:hover { color: var(--red); }
 .oferta-encerrada .oferta-encerrada-aviso { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); max-width: 560px; margin-inline: auto; padding: var(--space-7) var(--space-6); border-radius: var(--radius-2); text-align: center; background: var(--bg-2); border: 1px solid var(--line); }
 .oferta-encerrada-aviso h3 { font-size: var(--text-title); }
 .oferta-encerrada-aviso p { color: var(--muted); }
-.oferta-encerrada .oferta-encerrada-aviso .btn-hero { display: inline-flex; color: var(--wa-ink); background: var(--wa); box-shadow: none; }
+.oferta-encerrada .oferta-encerrada-aviso .btn-hero { display: inline-flex; }
 
 /* ─── Avisos de compra ─── */
 .avisos { position: fixed; left: var(--space-4); bottom: var(--space-4); z-index: 45; display: flex; flex-direction: column; gap: var(--space-2); width: min(360px, calc(100vw - 104px)); pointer-events: none; }
