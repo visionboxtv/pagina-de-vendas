@@ -1,8 +1,14 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: Cakto LIGADA aos avisos de compra
+- Primeiro teste da Cakto deu 401: a Cakto tinha gravado uma chave própria (UUID de 36 caracteres) em vez da nossa. Chave refeita: o dono colou a mesma chave nova na Cakto e em `CAKTO_WEBHOOK_SECRET` (Vercel) e fez o redeploy.
+- Conferido: `/api/venda` recusa quem não tem a chave (401) e o **Testar** da Cakto (Compra aprovada) recebeu **200 OK** (webhook 81288). O produto do teste é de exemplo, então foi ignorado: `/api/vendas` segue vazio e nenhum aviso falso aparece na página.
+- A partir de agora, cada compra aprovada nos 4 planos aparece nos avisos em até 1 minuto (só primeiro nome, plano e valor), junto das 48 compras comprovadas.
+- Lição: se trocar a chave, ela precisa ser igual nos dois lados, e mudança de variável na Vercel só vale depois do Redeploy. Os logs da Cakto (Ver detalhes) mostram o status de cada envio.
+
 ## 2026-11-04: chave do webhook salva; Mensal da Cakto a R$ 29,70
 - Webhook "Avisos da Página de Vendas" salvo e ativo na Cakto. O dono colou a chave em `CAKTO_WEBHOOK_SECRET` na Vercel (conferida pelo tamanho, 45 caracteres) e ela foi salva.
-- Falta o **redeploy** do projeto `sales-page` na Vercel (a ferramenta do Claude bloqueou; fica com o dono). Conferido na sincronização: `/api/venda` ainda responde 503 "não configurado". Depois do redeploy: apertar **Testar** no webhook da Cakto e confirmar que o aviso chega.
+- Redeploy e teste concluídos: ver entrada acima.
 - Decisão do dono: Mensal vale **R$ 29,70**. Produto Mensal alterado na Cakto de R$ 27,90 para R$ 29,70; checkout usado pela página conferido cobrando R$ 29,70.
 - Verificação do domínio na Meta: não urgente (anúncios vão ao WhatsApp e o Purchase sai do Gestor como chat); fazer quando o dono quiser.
 - Páginas antigas megacinesuporte e pointplay9: o dono disse que ninguém mais usa; ficam como estão (sem visitas, não enviam compras ao Pixel).
