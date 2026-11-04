@@ -1,5 +1,12 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: WhatsApp fora da página; avisos com preço do plano (PUBLICADO, e5bcbe1)
+- Pedido do dono, com "pode publicar": retirados todos os links de WhatsApp para contato (botão flutuante, FAQ 07, link Contato e selo do rodapé, SAC, aviso de oferta encerrada e páginas de privacidade, termos e trocas). Contato agora só pelo e-mail pixvisionbox@gmail.com; selo virou "Suporte por e-mail". Removido o evento Contact do Pixel (não há mais link de WhatsApp). Mantidas as menções de que o acesso e o suporte pós-compra são pelo WhatsApp (planos, FAQ, termos).
+- `/api/vendas` passou a mostrar o preço do plano (29,70 / 67 / 97 / 147), sem a taxa de R$ 0,99 que entra no valor pago. A compra de teste do dono (Mensal) fica nos avisos por decisão dele.
+- Conferido no ar: 0 links wa.me na página e nas legais, sem botão flutuante, rodapé com e-mail, sem rolagem lateral, 4 checkouts iguais, vídeo 206, `/api/vendas` com valor 29,7.
+- Pendente: entrega na Cakto (e-mail/página de obrigado com link do WhatsApp do suporte e mensagem "Olá! Acabei de comprar o plano <Plano> da VisionBox e gostaria de instalar."). A compra de teste não gerou e-mail nem entrega. Cakto deslogada no Chrome do Claude; número a confirmar (Contato Principal VisionBox 31 98355-5608 x página antiga 31 98256-5683).
+- E-mail no domínio: a Vercel (mesmo no Pro) não hospeda caixas de e-mail; precisa de serviço à parte (ImprovMX grátis para encaminhar, Zoho Mail grátis, Google Workspace pago).
+
 ## 2026-11-04: Cakto LIGADA aos avisos de compra
 - Primeiro teste da Cakto deu 401: a Cakto tinha gravado uma chave própria (UUID de 36 caracteres) em vez da nossa. Chave refeita: o dono colou a mesma chave nova na Cakto e em `CAKTO_WEBHOOK_SECRET` (Vercel) e fez o redeploy.
 - Conferido: `/api/venda` recusa quem não tem a chave (401) e o **Testar** da Cakto (Compra aprovada) recebeu **200 OK** (webhook 81288). O produto do teste é de exemplo, então foi ignorado: `/api/vendas` segue vazio e nenhum aviso falso aparece na página.
