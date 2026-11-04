@@ -1,5 +1,12 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: ajustes do dono publicados (commit cc35739)
+- Topo: frase trocada para "A mesma estrutura da Sky e da Netflix."; benefícios: "Mais de 140 mil filmes, séries e canais ao vivo" (juntou dois itens) e "Sem cobrança surpresa"; bolinhas dos benefícios do topo em verde; nota do vídeo: "Clique para reproduzir o vídeo".
+- Imagens do dono (convertidas para JPG leve): servidores no lugar da TV com futebol em "Por que não trava" (no celular é a primeira imagem da página; no computador a pipoca atrás do vídeo continua), showroom VisionBox em "Compatível com todos os dispositivos", arte das 2 telas no Bônus 1 (clicável, leva aos planos). Removidas futebol, celular e família; crédito no rodapé só da pipoca.
+- Item 06 "140.000+ Conteúdos" removido dos diferenciais.
+- Ainda citam o YouTube: o subtítulo e o item 01 de "Por que não trava" (o dono pediu a troca só no topo).
+- Conferido no ar: textos novos, imagens e vídeo com 200, 4 links da Cakto e Pixel iguais, sem rolagem lateral em 390 e 1440 px, sloplint 0 FAIL.
+
 ## 2026-11-04: VSL V4 publicada
 - O dono enviou a VSL V4 (Área de Trabalho, 1080x1920, 5:15, 335 MB) para aplicar na página. Convertida para `video/vsl-v4.mp4` (720x1280, H.264 CRF 28, AAC 96k, início rápido; 44 MB) e capa `video/poster-v4.jpg` (quadro de 3 s). O vídeo antigo `video/vsl.mp4` continua no repositório, sem uso.
 - Publicado (commit `9e5b922`) e conferido no ar: HTML com a V4, vídeo e capa respondendo 200, os 4 links da Cakto e o Pixel iguais. No celular o vídeo segue inteiro na primeira tela (390x844 e 375x667). O botão continua liberando aos 60 s; a V4 pede o clique no fim (cerca de 5:00).
