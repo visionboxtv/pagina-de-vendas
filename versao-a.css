@@ -98,7 +98,7 @@ section { padding-block: var(--space-10); }
 }
 .phone::before { content: ""; position: absolute; top: 18px; left: 50%; z-index: 3; width: 72px; height: 20px; margin-left: -36px; border-radius: var(--pill); background: var(--black); }
 .phone .video-wrap, .phone-screen { position: relative; border-radius: 34px; overflow: hidden; background: var(--black); }
-.video-wrap video { color: var(--night-ink); width: 100%; aspect-ratio: 404 / 720; background: var(--black); }
+.video-wrap video { color: var(--night-ink); width: 100%; aspect-ratio: 9 / 16; background: var(--black); }
 .video-overlay { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity var(--dur-fast) var(--ease); }
 .video-overlay.hidden { opacity: 0; pointer-events: none; }
 .play-btn { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--red); box-shadow: var(--shadow-red); transition: transform var(--dur-fast) var(--ease); }
