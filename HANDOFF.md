@@ -1,7 +1,9 @@
 # HANDOFF: Página de Vendas
 
-## 2026-11-03: novo visual (versão A) aplicado na main local, ainda NÃO publicado
-- O dono escolheu a versão A entre duas propostas e pediu para aplicar. Está na `main` local (commits `67f8246` e `f020b50`); falta o push, que publica pela Vercel, e ele só sai com o "sim" do dono.
+## 2026-11-03: novo visual (versão A) PUBLICADO
+- Publicado com o "sim" do dono ("Pode publicar sim"): push de `main` até `9a92d9a`. Conferido no ar: HTML idêntico à `main`, os 4 links da Cakto, pixel, páginas legais, vídeo, `versao-a.css` e as fotos de `img/` respondendo.
+- Fora desta publicação: cronômetro de 3 h no topo e avisos de compra (pedido em andamento em outro chat). O aviso simulado é só para teste do dono e não deve ir ao ar.
+- O dono escolheu a versão A entre duas propostas (commits `67f8246` e `f020b50`).
 - Visual: fundo que alterna escuro e claro ao rolar, nomes dos streamings correndo de lado, blocos que entram ao rolar, mockups de TV e celular, FAQ em painéis numerados, sem emojis. Estilo em `versao-a.css`; fotos em `img/` (Wikimedia Commons, créditos no rodapé). O dono avisou que as imagens vão mudar.
 - Topo: frase abaixo do título encurtada para "A mesma estrutura do YouTube e da Netflix: sinal estável, sem travar." No celular, o vídeo aparece inteiro na primeira tela (conferido em 390x844, 360x740 e 375x667).
 - Botão "QUERO ACESSAR AGORA" abaixo do vídeo: aparece depois de 90 s de vídeo assistido ou no fim (`LIBERAR_EM` no script) e leva aos planos (#planos). Quem já liberou vê direto (localStorage).
