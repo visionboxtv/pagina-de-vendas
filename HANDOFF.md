@@ -1,5 +1,12 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: sincronização final conferida
+- Os dois pedidos foram reunidos no commit `3ae1e6d`: 48 compras comprovadas, 12 por plano, com primeiro nome, plano e valor pago no mesmo card. Esse commit já está na `main` remota e publicado; nenhuma nova publicação foi feita nesta sincronização.
+- Conferência independente: HTML, `avisos.js`, base histórica, CSS e privacidade do site iguais aos arquivos locais, normalizando CRLF/LF. Base com 48 primeiros nomes distintos, 12 registros de cada modalidade e valores positivos; auditoria local contém os 48 registros de origem.
+- Verificação da execução: percorreu as 48 compras com os valores em reais, prioridade de nova venda, não repetição do evento, pausas em aba oculta/modal e intervalos de 45 a 83 s. API pública respondeu 200; HANDOFF e script de simulação continuam 404. Capturas da publicação em celular e computador revisadas.
+- Sem conflitos ou alterações de produto necessárias. Corrigido abaixo o registro intermediário que ainda descrevia o complemento de valores como não integrado. Mantido o vídeo local não versionado.
+- Pendente: ativação externa da Cakto/Upstash/segredo na Vercel para receber novas vendas automaticamente. O histórico publicado funciona sem essa conexão; ela não foi configurada nesta sincronização.
+
 ## 2026-11-04: 48 compras comprovadas nos avisos da página
 - Autorização do dono: selecionar e publicar 48 compras reais da base, 12 de cada modalidade, embaralhadas, com card minimalista, sem horários. Complemento paralelo do dono para mostrar valores foi integrado nesta entrega.
 - Fonte: planilhas de clientes e pagamentos das contas Vision Box 1 e Vision Box 2, exportadas em 2026-08-23 na pasta sensível do Clic CRM. Pagamentos associados ao cliente pela coluna `usuario`; selecionados 48 primeiros nomes distintos, com data válida e valor positivo, 12 mensais, 12 trimestrais, 12 semestrais e 12 anuais. Modalidade e valor vêm do pagamento original, não do cadastro atual nem do preço da página.
@@ -94,11 +101,11 @@
 ## 2026-10-21: publicada
 - O dono autorizou ("Pode publicar a página de vendas corrigida."); push de 3 commits até 11399cd em `main`. Registro sensível S-20261021-003 no Cérebro.
 - A frase dos termos sobre os planos não se renovarem sozinhos foi publicada sem confirmação explícita do dono; rever se algum plano virar assinatura.
-# 2026-11-04 — complemento em integração: valor nos avisos de compra
+# 2026-11-04 — complemento de valores (histórico; integrado e publicado em 3ae1e6d)
 
-- Pedido mais recente do dono: mostrar também o valor do plano no card. `index.html` acrescenta `por R$ ...` quando o registro contém `valor` numérico positivo, formatado em reais. Não substitui valor ausente pelo preço atual.
+- Pedido mais recente do dono: mostrar também o valor do plano no card. A implementação final em `avisos.js`, carregada pelo `index.html`, acrescenta `por R$ ...` quando o registro contém `valor` numérico positivo, formatado em reais. Não substitui valor ausente pelo preço atual.
 - `api/venda.mjs` guarda o `data.amount` da compra aprovada como `valor`; `api/vendas.mjs` entrega esse campo quando válido. Política de privacidade atualizada para incluir o valor.
-- Para o agente c-b4f37102e5a8b3a4: nas 48 compras selecionadas do Clic CRM, manter também `valor` numérico do registro real; preservar este acréscimo ao trocar o texto do card. Se faltar valor, não inventar. Este complemento não foi publicado nem recebeu commit separado porque há outro agente ativo. A sincronização final reúne as alterações.
+- O complemento foi inicialmente entregue sem commit separado por haver outro agente ativo. Depois, os valores reais das 48 compras e a integração foram reunidos e publicados no commit `3ae1e6d`; não há pendência de integração ou publicação deste complemento.
 - Verificado localmente: webhook e API com Redis simulado, texto em reais e omissao de valores ausentes/invalidos; sintaxe dos modulos e diff conferidos.
 
 #
