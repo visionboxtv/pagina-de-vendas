@@ -349,8 +349,9 @@ footer .footer-links a:hover { color: var(--red); }
   .offer-strip { padding-block: var(--space-1); }
   .hero { min-height: 0; padding-block: var(--space-4) var(--space-7); }
   .hero-grid { gap: var(--space-3); }
-  .hero h1 { font-size: clamp(1.75rem, 7.4vw, 2.25rem); }
-  .hero h1 em { margin-top: var(--space-1); }
+  /* Branco em 2 linhas no celular; o amarelo mantém o tamanho anterior. */
+  .hero h1 { font-size: clamp(1.25rem, 6.5vw, 2.25rem); }
+  .hero h1 em { margin-top: var(--space-1); font-size: calc(0.56 * clamp(1.75rem, 7.4vw, 2.25rem)); }
   .hero .sub { font-size: var(--text-md); }
   .hero-text { margin-top: var(--space-2); }
   .hero-photo { display: none; }
