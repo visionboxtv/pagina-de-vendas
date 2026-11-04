@@ -1,5 +1,13 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-03: novo visual (versão A) aplicado na main local, ainda NÃO publicado
+- O dono escolheu a versão A entre duas propostas e pediu para aplicar. Está na `main` local (commits `67f8246` e `f020b50`); falta o push, que publica pela Vercel, e ele só sai com o "sim" do dono.
+- Visual: fundo que alterna escuro e claro ao rolar, nomes dos streamings correndo de lado, blocos que entram ao rolar, mockups de TV e celular, FAQ em painéis numerados, sem emojis. Estilo em `versao-a.css`; fotos em `img/` (Wikimedia Commons, créditos no rodapé). O dono avisou que as imagens vão mudar.
+- Topo: frase abaixo do título encurtada para "A mesma estrutura do YouTube e da Netflix: sinal estável, sem travar." No celular, o vídeo aparece inteiro na primeira tela (conferido em 390x844, 360x740 e 375x667).
+- Botão "QUERO ACESSAR AGORA" abaixo do vídeo: aparece depois de 90 s de vídeo assistido ou no fim (`LIBERAR_EM` no script) e leva aos planos (#planos). Quem já liberou vê direto (localStorage).
+- Conferido contra a versão anterior: links da Cakto, WhatsApp e páginas legais, os 20 valores em R$, pixel e scripts iguais; sloplint da Hallmark com 0 FAIL; sem rolagem lateral em 320, 390 e 1440 px.
+- Hallmark instalada só no projeto (`.claude/skills/hallmark`, fora do Git). Ramos locais de comparação: `visual-hallmark` (reprovado), `pag-versao-a`, `pag-versao-b`.
+
 ## 2026-11-03: ajustes publicados com autorização do dono
 - Publicado o commit `a415f0b` em `main`, após a confirmação "alterar e publicar no site". Site: https://sales-page-khaki.vercel.app.
 - Mensal anunciado no HTML: R$29,70. Mantidos trimestral R$67, semestral R$97 e anual R$147, com os mesmos links da Cakto.
