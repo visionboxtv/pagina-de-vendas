@@ -1,5 +1,13 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-03: cronômetro de 3 h e avisos de compra (ramo local `cronometro-avisos`, NÃO publicado)
+- Cronômetro no topo: 3 h + 5 a 25 min por visitante, gravado no navegador (recarregar não reinicia). Ao zerar com a pessoa na página, abre o aviso "Esta oferta sai do ar para você em 10:00"; passados os 10 min, os planos e o botão final somem neste acesso e aparece o contato do WhatsApp. O cronômetro de 15 min dos bônus continua igual.
+- Botão do topo liberado com 60 s de vídeo (antes 90 s).
+- Avisos de compra só com vendas reais: `api/venda.mjs` recebe o webhook da Cakto (purchase_approved, valida o secret ou a assinatura HMAC) e guarda só primeiro nome e plano no Upstash Redis; `api/vendas.mjs` entrega as das últimas 48 h. Sem configuração, nada aparece. Testado com Redis falso local.
+- Falta para funcionar no ar: criar o Upstash Redis na Vercel (projeto sales-page), definir CAKTO_WEBHOOK_SECRET e cadastrar na Cakto o webhook https://sales-page-khaki.vercel.app/api/venda com o evento purchase_approved.
+- Aviso simulado: só em teste/avisos-simulados.js (fora do Git e do site), carregado apenas em arquivo local ou localhost com ?teste-avisos no endereço, com o rótulo "teste". O dono pediu que ele não vá ao ar.
+- Política de privacidade ganhou o item dos avisos (primeiro nome e plano).
+
 ## 2026-11-03: novo visual (versão A) PUBLICADO
 - Publicado com o "sim" do dono ("Pode publicar sim"): push de `main` até `9a92d9a`. Conferido no ar: HTML idêntico à `main`, os 4 links da Cakto, pixel, páginas legais, vídeo, `versao-a.css` e as fotos de `img/` respondendo.
 - Fora desta publicação: cronômetro de 3 h no topo e avisos de compra (pedido em andamento em outro chat). O aviso simulado é só para teste do dono e não deve ir ao ar.

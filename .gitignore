@@ -3,3 +3,6 @@ Thumbs.db
 *.log
 .env
 .vercel
+
+# Modo de teste dos avisos de compra: só no computador, nunca no site.
+teste/
