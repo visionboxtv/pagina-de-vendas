@@ -1,5 +1,13 @@
 # HANDOFF: Página de Vendas
 
+## 2026-11-04: Cakto quase ligada aos avisos; Meta sem mudanças
+- Feito pelo Claude no navegador: banco Upstash Redis gratuito `pagina-vendas-avisos` criado e ligado ao projeto `sales-page` (variáveis `KV_REST_API_URL`/`KV_REST_API_TOKEN`). Webhook "Avisos da Página de Vendas" preenchido na Cakto (4 produtos VisionBox, evento Compra aprovada, URL https://visionboxtv.app/api/venda), **ainda não salvo**.
+- Falta o dono colar a chave secreta (já copiada) no webhook da Cakto e em `CAKTO_WEBHOOK_SECRET` na Vercel; depois, republicar (redeploy) e testar com o envio de teste da Cakto. Conferido na sincronização: `/api/venda` ainda responde 503 "não configurado" e `/api/vendas` lista vazia; os 48 avisos históricos funcionam sem isso.
+- Dúvida do dono respondida: a ligação com a Cakto é opcional e só alimenta os avisos da página. O Purchase continua indo pelo Gestor (Clic CRM, action_source chat); domínio novo não muda anúncios, Pixel nem otimização. Não ativar o Pixel próprio da Cakto (contaria a venda duas vezes).
+- Preço divergente: produto Mensal na Cakto R$ 27,90; página mostra R$ 29,70. Aguarda decisão do dono.
+- Recomendado, com ok do dono: verificar o domínio visionboxtv.app no Gerenciador de Negócios (TXT na Vercel). Páginas antigas megacinesuporte e pointplay9 ainda mandam compras pelo navegador ao mesmo Pixel (possível contagem dupla).
+- Nenhum arquivo do site alterado; nada publicado.
+
 ## 2026-11-04: domínio próprio visionboxtv.app ligado
 - Pedido do dono ("Use o claude para configurar o domínio"), feito pelo Claude no painel da Vercel (time PagAuto 1, plano Pro). Domínio comprado pelo dono na própria Vercel (vence em 2027-11-04), então o DNS já é da Vercel.
 - Projeto `sales-page`: `visionboxtv.app` como endereço principal (Production) e `www.visionboxtv.app` com redirecionamento permanente 308 para ele. `sales-page-khaki.vercel.app` continua funcionando.
