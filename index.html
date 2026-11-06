@@ -638,10 +638,40 @@
   })();
 
   // ── META PIXEL: dispara InitiateCheckout ao clicar em comprar ──
+  // Cada visita ganha um código aleatório que vai no link do checkout (?callback=). Ao clicar, o
+  // código e os identificadores da Meta (fbp/fbc) vão para /api/sessao; quando a compra é aprovada,
+  // a Cakto devolve o código e o Purchase pela API de Conversões leva esses dados.
   (function () {
+    var codigo = '';
+    try {
+      var bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      codigo = btoa(String.fromCharCode.apply(null, bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    } catch (e) {}
+    function cookie(nome) {
+      var m = document.cookie.match(new RegExp('(?:^|; )' + nome + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : '';
+    }
+    function fbc() {
+      var c = cookie('_fbc');
+      if (c) return c;
+      var id = new URLSearchParams(location.search).get('fbclid');
+      return id ? 'fb.1.' + Date.now() + '.' + id : '';
+    }
     document.querySelectorAll('.btn-buy, .btn-cta-final').forEach(function (btn) {
+      if (codigo) {
+        try {
+          var url = new URL(btn.href);
+          url.searchParams.set('callback', codigo);
+          btn.href = url.toString();
+        } catch (e) {}
+      }
       btn.addEventListener('click', function () {
         if (typeof fbq === 'function') { fbq('track', 'InitiateCheckout'); }
+        if (!codigo || !navigator.sendBeacon) return;
+        try {
+          navigator.sendBeacon('/api/sessao', JSON.stringify({ t: codigo, fbp: cookie('_fbp'), fbc: fbc() }));
+        } catch (e) {}
       });
     });
   })();

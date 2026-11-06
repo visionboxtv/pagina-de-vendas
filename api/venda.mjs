@@ -1,8 +1,13 @@
-// Recebe o webhook da Cakto (evento purchase_approved) e guarda só primeiro nome, plano e valor
-// da compra aprovada, para os avisos de compra da página. Nada de e-mail, telefone ou sobrenome.
-// Variáveis na Vercel: CAKTO_WEBHOOK_SECRET e as do Upstash Redis (KV_REST_API_URL/KV_REST_API_TOKEN
-// ou UPSTASH_REDIS_REST_URL/UPSTASH_REDIS_REST_TOKEN).
+// Recebe o webhook da Cakto (evento purchase_approved) e faz duas coisas com a compra aprovada:
+// 1. guarda só primeiro nome, plano e valor, para os avisos de compra da página (nada de e-mail,
+//    telefone ou sobrenome);
+// 2. envia o Purchase à API de Conversões da Meta (e-mail e celular em hash), uma vez por pedido, e
+//    marca o celular em hash por 7 dias para o Clic CRM não mandar outro Purchase (api/compra-pagina.mjs).
+// Variáveis na Vercel: CAKTO_WEBHOOK_SECRET, as do Upstash Redis (KV_REST_API_URL/KV_REST_API_TOKEN
+// ou UPSTASH_REDIS_REST_URL/UPSTASH_REDIS_REST_TOKEN) e as da Meta (veja api/_meta.mjs).
 import { createHmac, timingSafeEqual } from 'node:crypto';
+import { montarEvento, enviarMeta, hashesDoCelular } from './_meta.mjs';
+import { CODIGO } from './sessao.mjs';
 
 const CHAVE = 'vb:vendas';
 const GUARDAR = 30;
@@ -16,6 +21,7 @@ redis.call('EXPIRE', KEYS[1], ARGV[3])
 redis.call('SET', KEYS[2], '1', 'EX', ARGV[3])
 return 1`;
 // Código de cada checkout da página (pay.cakto.com.br/<código>_...).
+const META_MS = 7 * 24 * 60 * 60 * 1000;
 const OFERTAS = { eycvgvx: 'mensal', pb4q7ss: 'trimestral', n4cinqr: 'semestral', '5phanuz': 'anual' };
 
 const json = (status, corpo) => new Response(JSON.stringify(corpo), { status, headers: { 'content-type': 'application/json' } });
@@ -69,23 +75,57 @@ export async function POST(request) {
 
   if (corpo?.event !== 'purchase_approved') return json(200, { ok: true, ignorado: 'evento' });
   const pedidos = Array.isArray(corpo.data) ? corpo.data : [corpo.data];
-  let recebidos = 0;
-  try {
-    for (const d of pedidos) {
-      if (d?.status !== 'paid' || (d.offer_type && d.offer_type !== 'main')) continue;
-      const plano = Object.hasOwn(OFERTAS, d.offer?.id) ? OFERTAS[d.offer.id] : null;
-      const nome = primeiroNome(d.customer?.name);
-      const id = typeof d.id === 'string' ? d.id : '';
-      const em = Date.parse(d.paidAt);
-      const idade = Date.now() - em;
-      if (!plano || !nome || !id || id.length > 128 || !Number.isFinite(em) || idade < 0 || idade > JANELA_MS) continue;
+  let recebidos = 0, meta = 0, guardarFalhou = false, metaFalhou = false;
+  for (const d of pedidos) {
+    if (d?.status !== 'paid' || (d.offer_type && d.offer_type !== 'main')) continue;
+    const plano = Object.hasOwn(OFERTAS, d.offer?.id) ? OFERTAS[d.offer.id] : null;
+    const id = typeof d.id === 'string' ? d.id : '';
+    const em = Date.parse(d.paidAt);
+    const idade = Date.now() - em;
+
+    // Produto fora da página: só o "Testar" da Cakto, que vira evento de teste na Meta se houver código.
+    if (!plano) {
+      if (process.env.META_TEST_EVENT_CODE) {
+        const r = await enviarMeta(montarEvento(d, null, { teste: true }), { teste: true });
+        meta += r.ok ? 1 : 0;
+      }
+      continue;
+    }
+
+    const nome = primeiroNome(d.customer?.name);
+    if (nome && id && id.length <= 128 && Number.isFinite(em) && idade >= 0 && idade <= JANELA_MS) {
       const valor = typeof d.amount === 'number' || typeof d.amount === 'string' ? Number(d.amount) : NaN;
       const registro = JSON.stringify({ nome, plano, em, id, ...(Number.isFinite(valor) && valor > 0 ? { valor } : {}) });
-      const { result } = await db('', ['EVAL', GRAVAR, '2', CHAVE, `${CHAVE}:${id}`, registro, String(GUARDAR - 1), String(JANELA_MS / 1000)]);
-      recebidos += Number(result) === 1 ? 1 : 0;
+      try {
+        const { result } = await db('', ['EVAL', GRAVAR, '2', CHAVE, `${CHAVE}:${id}`, registro, String(GUARDAR - 1), String(JANELA_MS / 1000)]);
+        recebidos += Number(result) === 1 ? 1 : 0;
+      } catch { guardarFalhou = true; }
     }
-  } catch {
-    return json(503, { erro: 'armazenamento indisponível' });
+
+    // Purchase na Meta: uma vez por pedido. Nas retentativas da Cakto, a marca impede o reenvio;
+    // se o Redis falhar, o mesmo event_id deixa a Meta descartar a repetição.
+    if (!process.env.META_CAPI_TOKEN || !id || id.length > 128 || !Number.isFinite(em) || idade > META_MS) continue;
+    const marca = `vb:meta:${id}`;
+    const jaFoi = await db('', ['EXISTS', marca]).then(({ result }) => Number(result) === 1, () => false);
+    if (jaFoi) continue;
+    const sessao = await lerSessao(db, d.callback);
+    const r = await enviarMeta(montarEvento(d, sessao, { plano }));
+    if (r.ok) {
+      meta += 1;
+      const marcas = hashesDoCelular(d.customer?.phone).map((h) => ['SET', `vb:compra-tel:${h}`, '1', 'EX', String(META_MS / 1000)]);
+      await db('/pipeline', [['SET', marca, '1', 'EX', String(META_MS / 1000)], ...marcas]).catch(() => {});
+    } else if (r.temporario) metaFalhou = true;
   }
-  return json(200, { ok: true, recebidos });
+  // Erro devolvido = a Cakto reenvia o webhook; os avisos e a marca da Meta impedem repetição.
+  if (guardarFalhou) return json(503, { erro: 'armazenamento indisponível' });
+  if (metaFalhou) return json(502, { erro: 'meta indisponível' });
+  return json(200, { ok: true, recebidos, meta });
+}
+
+async function lerSessao(db, codigo) {
+  if (!CODIGO.test(String(codigo || ''))) return null;
+  try {
+    const { result } = await db('', ['GET', `vb:sessao:${codigo}`]);
+    return result ? JSON.parse(result) : null;
+  } catch { return null; }
 }
